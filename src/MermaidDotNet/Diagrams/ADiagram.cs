@@ -1,7 +1,7 @@
 ﻿using MermaidDotNet.Extensions;
 using MermaidDotNet.Models;
 
-namespace MermaidDotNet
+namespace MermaidDotNet.Diagrams
 {
     public abstract class ADiagram
     {

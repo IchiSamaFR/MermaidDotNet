@@ -2,7 +2,7 @@
 using MermaidDotNet.Extensions;
 using MermaidDotNet.Models;
 
-namespace MermaidDotNet;
+namespace MermaidDotNet.Diagrams;
 
 public class FlowchartDiagram : ADiagram
 {
