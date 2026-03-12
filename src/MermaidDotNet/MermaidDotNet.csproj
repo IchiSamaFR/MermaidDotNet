@@ -1,7 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFrameworks>net48;net8.0</TargetFrameworks>
+	</PropertyGroup>
+
+
+	<PropertyGroup Condition=" '$(TargetFramework)' != 'net48' ">
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>

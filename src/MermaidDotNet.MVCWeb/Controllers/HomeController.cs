@@ -1,5 +1,5 @@
-using MermaidDotNet.Enums;
 using MermaidDotNet.Diagrams;
+using MermaidDotNet.Enums;
 using MermaidDotNet.Models;
 using MermaidDotNet.MVCWeb.Models;
 using Microsoft.AspNetCore.Mvc;

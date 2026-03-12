@@ -1,4 +1,5 @@
 ﻿using MermaidDotNet.Enums;
+using System.Collections.Generic;
 
 namespace MermaidDotNet.Models
 {

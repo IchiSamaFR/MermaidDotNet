@@ -1,4 +1,7 @@
 ﻿using MermaidDotNet.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MermaidDotNet.Models
 {
@@ -6,16 +9,16 @@ namespace MermaidDotNet.Models
     {
         public string Name { get; set; }
         //Can be TB, BT, RL, LR (default: LR) (Top/Bottom/Left/Right, respectively)
-        public string? Direction { get; set; } = null;
-        public List<FlowNode> Nodes { get; set; } = new();
-        public List<FlowLink> Links { get; set; } = new();
+        public string Direction { get; set; } = null;
+        public List<FlowNode> Nodes { get; set; } = new List<FlowNode>();
+        public List<FlowLink> Links { get; set; } = new List<FlowLink>();
 
-        public FlowSubGraph(string name, string? direction = null)
+        public FlowSubGraph(string name, string direction = null)
         {
             Name = name.Replace(" ", "");
             Direction = direction;
         }
-        public FlowSubGraph(string name, List<FlowNode> nodes, List<FlowLink> links, string? direction = null)
+        public FlowSubGraph(string name, List<FlowNode> nodes, List<FlowLink> links, string direction = null)
         {
             Name = name.Replace(" ", "");
             Nodes = nodes;

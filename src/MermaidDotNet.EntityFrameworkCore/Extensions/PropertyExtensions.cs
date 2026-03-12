@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿#if NET8_0_OR_GREATER
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -21,3 +22,4 @@ namespace MermaidDotNet.EntityFrameworkCore.Extensions
         }
     }
 }
+#endif

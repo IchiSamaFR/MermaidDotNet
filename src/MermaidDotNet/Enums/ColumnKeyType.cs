@@ -1,4 +1,6 @@
-﻿namespace MermaidDotNet.Enums
+﻿using System;
+
+namespace MermaidDotNet.Enums
 {
     [Flags]
     public enum ColumnKeyType

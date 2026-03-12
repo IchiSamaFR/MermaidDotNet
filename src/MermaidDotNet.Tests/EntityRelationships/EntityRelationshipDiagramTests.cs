@@ -1,6 +1,8 @@
 ﻿using MermaidDotNet.Diagrams;
 using MermaidDotNet.Enums;
 using MermaidDotNet.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace MermaidDotNet.Tests.EntityRelationships
 {
@@ -188,7 +190,7 @@ namespace MermaidDotNet.Tests.EntityRelationships
                 new EntityRelationNode("Author", new List<EntityRelationColumn>
                 {
                     new EntityRelationColumn("AuthorId", "int"),
-                    new EntityRelationColumn("Name", "string") 
+                    new EntityRelationColumn("Name", "string")
                 }),
                 new EntityRelationNode("Book", new List<EntityRelationColumn>
                 {

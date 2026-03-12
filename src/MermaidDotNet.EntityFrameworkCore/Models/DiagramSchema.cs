@@ -1,4 +1,6 @@
-﻿namespace MermaidDotNet.EntityFrameworkCore.Models
+﻿using System.Collections.Generic;
+
+namespace MermaidDotNet.EntityFrameworkCore.Models
 {
     internal class DiagramSchema
     {

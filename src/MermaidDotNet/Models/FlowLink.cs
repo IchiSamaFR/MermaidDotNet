@@ -57,38 +57,51 @@ namespace MermaidDotNet.Models
 
         private string GetLinkSymbol(LinkType linkType)
         {
-            return linkType switch
+            switch (linkType)
             {
-                LinkType.Normal => "--",
-                LinkType.Dotted => "-.",
-                LinkType.Thick => "==",
-                LinkType.Invisible => "~~~",
-                _ => "--"
-            };
+                case LinkType.Normal:
+                    return "--";
+                case LinkType.Dotted:
+                    return "-.";
+                case LinkType.Thick:
+                    return "==";
+                case LinkType.Invisible:
+                    return "~~~";
+                default:
+                    return "--";
+            }
         }
 
         private string GetStartArrowSymbol(ArrowType arrowType)
         {
-            return arrowType switch
+            switch (arrowType)
             {
-                ArrowType.Normal => "<",
-                ArrowType.Circle => "o",
-                ArrowType.Cross => "x",
-                ArrowType.Open => "<",
-                _ => "<"
-            };
+                case ArrowType.Normal:
+                case ArrowType.Open:
+                    return "<";
+                case ArrowType.Circle:
+                    return "o";
+                case ArrowType.Cross:
+                    return "x";
+                default:
+                    return "<";
+            }
         }
 
         private string GetEndArrowSymbol(ArrowType arrowType)
         {
-            return arrowType switch
+            switch (arrowType)
             {
-                ArrowType.Normal => ">",
-                ArrowType.Circle => "o",
-                ArrowType.Cross => "x",
-                ArrowType.Open => ">",
-                _ => ">"
-            };
+                case ArrowType.Normal:
+                case ArrowType.Open:
+                    return ">";
+                case ArrowType.Circle:
+                    return "o";
+                case ArrowType.Cross:
+                    return "x";
+                default:
+                    return ">";
+            }
         }
     }
 }

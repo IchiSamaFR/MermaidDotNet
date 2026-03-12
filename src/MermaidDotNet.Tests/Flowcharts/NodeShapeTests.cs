@@ -1,97 +1,100 @@
 using MermaidDotNet.Diagrams;
 using MermaidDotNet.Enums;
 using MermaidDotNet.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
-namespace MermaidDotNet.Tests.Flowcharts;
-
-[TestClass]
-public class NodeShapeTests
+namespace MermaidDotNet.Tests.Flowcharts
 {
-    [TestMethod]
-    public void ParallelogramNodeShapeFlowchart()
+    [TestClass]
+    public class NodeShapeTests
     {
-        //Arrange
-        string direction = "LR";
-        List<FlowNode> nodes = new()
+        [TestMethod]
+        public void ParallelogramNodeShapeFlowchart()
         {
-            new("node1", "This is a parallelogram", ShapeType.Parallelogram)
-        };
-        FlowchartDiagram flowchart = new(direction, nodes, new());
-        string expected = @"flowchart LR
+            //Arrange
+            string direction = "LR";
+            List<FlowNode> nodes = new List<FlowNode>()
+            {
+                new FlowNode("node1", "This is a parallelogram", ShapeType.Parallelogram)
+            };
+            FlowchartDiagram flowchart = new FlowchartDiagram(direction, nodes, new List<FlowLink>());
+            string expected = @"flowchart LR
     node1[/This is a parallelogram/]";
 
-        //Act
-        string result = flowchart.CalculateDiagram();
+            //Act
+            string result = flowchart.CalculateDiagram();
 
-        //Assert
-        Assert.IsNotNull(flowchart);
-        Assert.IsNotNull(result);
-        Assert.AreEqual(expected, result);
-    }
+            //Assert
+            Assert.IsNotNull(flowchart);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-    [TestMethod]
-    public void TrapezoidNodeShapeFlowchart()
-    {
-        //Arrange
-        string direction = "LR";
-        List<FlowNode> nodes = new()
+        [TestMethod]
+        public void TrapezoidNodeShapeFlowchart()
         {
-            new("node1", "This is a trapezoid", ShapeType.Trapezoid)
-        };
-        FlowchartDiagram flowchart = new(direction, nodes, new());
-        string expected = @"flowchart LR
+            //Arrange
+            string direction = "LR";
+            List<FlowNode> nodes = new List<FlowNode>()
+            {
+                new FlowNode("node1", "This is a trapezoid", ShapeType.Trapezoid)
+            };
+            FlowchartDiagram flowchart = new FlowchartDiagram(direction, nodes, new List<FlowLink>());
+            string expected = @"flowchart LR
     node1[\This is a trapezoid\]";
 
-        //Act
-        string result = flowchart.CalculateDiagram();
+            //Act
+            string result = flowchart.CalculateDiagram();
 
-        //Assert
-        Assert.IsNotNull(flowchart);
-        Assert.IsNotNull(result);
-        Assert.AreEqual(expected, result);
-    }
+            //Assert
+            Assert.IsNotNull(flowchart);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-    [TestMethod]
-    public void TrapezoidAltNodeShapeFlowchart()
-    {
-        //Arrange
-        string direction = "LR";
-        List<FlowNode> nodes = new()
+        [TestMethod]
+        public void TrapezoidAltNodeShapeFlowchart()
         {
-            new("node1", "This is a trapezoid alt", ShapeType.TrapezoidAlt)
-        };
-        FlowchartDiagram flowchart = new(direction, nodes, new());
-        string expected = @"flowchart LR
+            //Arrange
+            string direction = "LR";
+            List<FlowNode> nodes = new List<FlowNode>()
+            {
+                new FlowNode("node1", "This is a trapezoid alt", ShapeType.TrapezoidAlt)
+            };
+            FlowchartDiagram flowchart = new FlowchartDiagram(direction, nodes, new List<FlowLink>());
+            string expected = @"flowchart LR
     node1[/This is a trapezoid alt\]";
 
-        //Act
-        string result = flowchart.CalculateDiagram();
+            //Act
+            string result = flowchart.CalculateDiagram();
 
-        //Assert
-        Assert.IsNotNull(flowchart);
-        Assert.IsNotNull(result);
-        Assert.AreEqual(expected, result);
-    }
+            //Assert
+            Assert.IsNotNull(flowchart);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-    [TestMethod]
-    public void SubroutineNodeShapeFlowchart()
-    {
-        //Arrange
-        string direction = "LR";
-        List<FlowNode> nodes = new()
+        [TestMethod]
+        public void SubroutineNodeShapeFlowchart()
         {
-            new("node1", "This is a subroutine", ShapeType.Subroutine)
-        };
-        FlowchartDiagram flowchart = new(direction, nodes, new());
-        string expected = @"flowchart LR
+            //Arrange
+            string direction = "LR";
+            List<FlowNode> nodes = new List<FlowNode>()
+            {
+                new FlowNode("node1", "This is a subroutine", ShapeType.Subroutine)
+            };
+            FlowchartDiagram flowchart = new FlowchartDiagram(direction, nodes, new List<FlowLink>());
+            string expected = @"flowchart LR
     node1[[This is a subroutine]]";
 
-        //Act
-        string result = flowchart.CalculateDiagram();
+            //Act
+            string result = flowchart.CalculateDiagram();
 
-        //Assert
-        Assert.IsNotNull(flowchart);
-        Assert.IsNotNull(result);
-        Assert.AreEqual(expected, result);
+            //Assert
+            Assert.IsNotNull(flowchart);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
     }
 }

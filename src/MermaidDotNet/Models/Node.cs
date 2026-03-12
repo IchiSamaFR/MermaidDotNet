@@ -4,7 +4,7 @@ namespace MermaidDotNet.Models
 {
     public class Node
     {
-        public Node(string name, string text, string? cssClass = null)
+        public Node(string name, string text, string cssClass = "")
         {
             Name = name.Replace(" ", "");
             Text = text;
@@ -13,7 +13,7 @@ namespace MermaidDotNet.Models
 
         public string Name { get; set; }
         public string Text { get; set; }
-        public string? CssClass { get; set; }
+        public string CssClass { get; set; }
 
         public virtual string GetNodeString()
         {

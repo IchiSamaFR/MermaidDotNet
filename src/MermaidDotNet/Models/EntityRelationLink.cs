@@ -57,23 +57,46 @@ namespace MermaidDotNet.Models
         private static string GetMermaidRelationSyntax(RelationType source, RelationType destination)
         {
             // Symboles Mermaid ER
-            string left = source switch
+            string left;
+            switch (source)
             {
-                RelationType.ZeroOrOne => "|o",
-                RelationType.ExactlyOne => "||",
-                RelationType.ZeroOrMore => "}o",
-                RelationType.OneOrMore => "}|",
-                _ => "||"
-            };
-            string right = destination switch
+                case RelationType.ZeroOrOne:
+                    left = "|o";
+                    break;
+                case RelationType.ExactlyOne:
+                    left = "||";
+                    break;
+                case RelationType.ZeroOrMore:
+                    left = "}o";
+                    break;
+                case RelationType.OneOrMore:
+                    left = "}|";
+                    break;
+                default:
+                    left = "||";
+                    break;
+            }
+
+            string right;
+            switch (destination)
             {
-                RelationType.ZeroOrOne => "o|",
-                RelationType.ExactlyOne => "||",
-                RelationType.ZeroOrMore => "o{",
-                RelationType.OneOrMore => "|{",
-                _ => "||"
-            };
-            return $"{left}--{right}";
+                case RelationType.ZeroOrOne:
+                    right = "o|";
+                    break;
+                case RelationType.ExactlyOne:
+                    right = "||";
+                    break;
+                case RelationType.ZeroOrMore:
+                    right = "o{";
+                    break;
+                case RelationType.OneOrMore:
+                    right = "|{";
+                    break;
+                default:
+                    right = "||";
+                    break;
+            }
+            return left + "--" + right;
         }
     }
 }
