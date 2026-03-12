@@ -20,11 +20,11 @@ A comprehensive .NET wrapper to create [Mermaid](https://mermaid.js.org/syntax/f
 Very simple example, to create a Left->Right graph (LR), with two nodes linked. 
 ```csharp
     string direction = "LR";
-    List<Node> nodes = new()
+    List<FlowNode> nodes = new()
     {
         new("node1", "This is node 1"),
-        new("node2", "This is node 2", Node.ShapeType.Hexagon),
-        new("node3", "This is node 3", Node.ShapeType.Rounded)
+        new("node2", "This is node 2", ShapeType.Hexagon),
+        new("node3", "This is node 3", ShapeType.Rounded)
     };
     List<Link> links = new()
     {
@@ -62,21 +62,21 @@ Example with multiple node shapes, link types, arrow types, and styling:
 
 ```csharp
     string direction = "TD";
-    List<Node> nodes = new()
+    List<FlowNode> nodes = new()
     {
-        new("start", "Start Process", Node.ShapeType.Circle, "startClass", "console.log('Started')"),
-        new("process1", "Data Processing", Node.ShapeType.Rectangle),
-        new("decision", "Valid Data?", Node.ShapeType.Rhombus),
-        new("process2", "Transform Data", Node.ShapeType.Parallelogram),
-        new("end2", "Complete", Node.ShapeType.Stadium)
+        new("start", "Start Process", ShapeType.Circle, "startClass", "console.log('Started')"),
+        new("process1", "Data Processing", ShapeType.Rectangle),
+        new("decision", "Valid Data?", ShapeType.Rhombus),
+        new("process2", "Transform Data", ShapeType.Parallelogram),
+        new("end2", "Complete", ShapeType.Stadium)
     };
     List<Link> links = new()
     {
-        new Link("start", "process1", "", null, false, Link.LinkType.Normal),
-        new Link("process1", "decision", "validate", null, false, Link.LinkType.Dotted),
-        new Link("decision", "process2", "yes", "stroke:green,stroke-width:3px", false, Link.LinkType.Thick),
-        new Link("process2", "end2", "", null, false, Link.LinkType.Normal),
-        new Link("decision", "process1", "", null, false, Link.LinkType.Normal, Link.ArrowType.Circle)
+        new Link("start", "process1", "", null, false, LinkType.Normal),
+        new Link("process1", "decision", "validate", null, false, LinkType.Dotted),
+        new Link("decision", "process2", "yes", "stroke:green,stroke-width:3px", false, LinkType.Thick),
+        new Link("process2", "end2", "", null, false, LinkType.Normal),
+        new Link("decision", "process1", "", null, false, LinkType.Normal, ArrowType.Circle)
     };
     Flowchart flowchart = new(direction, nodes, links);
     string result = flowchart.CalculateFlowchart();

@@ -1,0 +1,39 @@
+﻿using MermaidDotNet.Extensions;
+using MermaidDotNet.Models;
+
+namespace MermaidDotNet
+{
+    public abstract class ADiagram
+    {
+        public abstract string Name { get; }
+        public List<Node> Nodes { get; set; }
+        public List<Link> Links { get; set; }
+
+        /// <summary>
+        /// Initialize the flowchart
+        /// </summary>
+        /// <param name="nodes">A list of nodes</param>
+        /// <param name="links">A list of links</param>
+        public ADiagram(List<Node> nodes, List<Link> links)
+        {
+            Nodes = nodes;
+            Links = links;
+        }
+
+        /// <summary>
+        /// Given a list of nodes and links, calculate the mermaid flowchart
+        /// </summary>
+        /// <returns>a mermaid graph as a string</returns>
+        public virtual string CalculateDiagram()
+        {
+            var lines = new List<string>();
+            lines.Add(Name);
+
+            lines.AddRange(Nodes.Select(n => n.GetNodeString()).ClearNewLines().Indent());
+            lines.AddRange(Links.Select(n => n.GetLinkString()).ClearNewLines().Indent());
+            lines.AddRange(Nodes.Select(n => n.GetClassString()).ClearNewLines().Indent());
+
+            return string.Join(Environment.NewLine, lines);
+        }
+    }
+}
