@@ -1,5 +1,5 @@
-﻿using MermaidDotNet.Enums;
-using Microsoft.EntityFrameworkCore;
+﻿using MermaidDotNet.EntityFrameworkCore.Enums;
+using MermaidDotNet.Enums;
 
 namespace MermaidDotNet.EntityFrameworkCore.Models
 {

@@ -1,225 +1,222 @@
 ﻿using MermaidDotNet.Diagrams;
-using MermaidDotNet.EntityFrameworkCore.Extensions;
+using MermaidDotNet.EntityFrameworkCore.Contexts;
 using MermaidDotNet.EntityFrameworkCore.Models;
 using MermaidDotNet.Enums;
 using MermaidDotNet.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+#if NET48
+using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Infrastructure;
+#else
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Options;
+#endif
 
 namespace MermaidDotNet.EntityFrameworkCore
 {
-    public static class EntityRelationshipDiagramExtension
-    {
-        public static EntityRelationshipDiagram ToMermaidEntityDiagram(this DbContext dbContext)
-        {
-            return dbContext.ToMermaidEntityDiagram(new EntityRelationshipDiagramOptions());
-        }
-        public static EntityRelationshipDiagram ToMermaidEntityDiagram(this DbContext dbContext, EntityRelationshipDiagramOptions options)
-        {
-            var entityTypes = dbContext.Model.GetEntityTypes()
-                .Where(e => !e.IsOwned())
-                .ToList();
+	public static class EntityRelationshipDiagramExtension
+	{
+		public static EntityRelationshipDiagram ToMermaidEntityDiagram(this DbContext dbContext)
+		{
+			return dbContext.ToMermaidEntityDiagram(new EntityRelationshipDiagramOptions());
+		}
 
-            var schema = BuildSchema(entityTypes);
-            return BuildEntityRelationshipDiagram(schema, options);
-        }
+		public static EntityRelationshipDiagram ToMermaidEntityDiagram(this DbContext dbContext, EntityRelationshipDiagramOptions options)
+		{
+			var entityTypes = GetEntityTypes(dbContext);
+			var schema = BuildSchema(entityTypes);
+			return BuildEntityRelationshipDiagram(schema, options);
+		}
 
-        private static RelationType GetRelationType(IForeignKey fk)
-        {
-            if (fk.IsUnique)
-            {
-                // Relation 1:1 ou 0:1
-                return fk.IsRequired ? RelationType.ExactlyOne : RelationType.ZeroOrOne;
-            }
-            else
-            {
-                // Relation 1:N ou 0:N
-                return fk.IsRequired ? RelationType.OneOrMore : RelationType.ZeroOrMore;
-            }
-        }
-        private static DiagramSchema BuildSchema(List<IEntityType> entityTypes)
-        {
-            var schema = new DiagramSchema();
-            schema.Tables = entityTypes
-                .Select(BuildTable)
-                .ToList();
+		private static List<EntityTypeContext> GetEntityTypes(DbContext dbContext)
+		{
+			return dbContext.Model.GetEntityTypes()
+				.Where(e => !e.IsOwned())
+				.Select(et => new EntityTypeContext(et))
+				.OrderBy(e => e.Name)
+				.ToList();
+		}
 
-            var entityTables = schema.Tables
-                .ToDictionary(t => t.EntityType);
+		private static RelationType GetRelationType(PropertyTypeContext foreignProperty)
+		{
+			if (foreignProperty.IsUnique)
+			{
+				return foreignProperty.IsRequired ? RelationType.ExactlyOne : RelationType.ZeroOrOne;
+			}
+			else
+			{
+				return foreignProperty.IsRequired ? RelationType.OneOrMore : RelationType.ZeroOrMore;
+			}
+		}
 
-            foreach (var tableKey in entityTables)
-            {
-                var table = tableKey.Value;
-                var foreignKeys = table.Columns
-                    .Where(c => c.ColumnKeyType.HasFlag(ColumnKeyType.ForeignKey))
-                    .ToList();
+		private static DiagramSchema BuildSchema(List<EntityTypeContext> entityTypes)
+		{
+			var schema = new DiagramSchema();
+			schema.Tables = entityTypes
+				.Select(BuildTable)
+				.ToList();
 
-                foreach (var fk in foreignKeys)
-                {
-                    var foreignKey = fk.Property.GetContainingForeignKeys().FirstOrDefault();
-                    if (foreignKey == null)
-                        continue;
+			var entityTables = schema.Tables.ToDictionary(t => t.EntityType.ClrType, t => t);
+			foreach (var table in schema.Tables)
+			{
+				var foreignColumns = table.Columns
+					.Where(c => c.Property.IsForeignKey)
+					.ToList();
 
-                    var pk = foreignKey.PrincipalKey.Properties.FirstOrDefault();
-                    if (!(pk.DeclaringType is IEntityType pkDeclaringType))
-                    {
-                        continue;
-                    }
+				foreach (var column in foreignColumns)
+				{
+					var foreignKey = column.Property;
+					if (foreignKey == null)
+						continue;
 
-                    schema.Links.Add(new DiagramLink
-                    {
-                        Source = table,
-                        Target = entityTables[pkDeclaringType],
-                        Label = fk.Property.Name,
-                        SourceType = GetRelationType(foreignKey),
-                        TargetType = RelationType.ExactlyOne,
-                        DeleteBehavior = foreignKey.DeleteBehavior
-                    });
-                }
-            }
+					if (!entityTables.TryGetValue(foreignKey.ForeignParentType, out var targetTable))
+						continue;
 
-            return schema;
-        }
-        private static DiagramTable BuildTable(IEntityType entityType)
-        {
-            var pkPropertyNames = entityType.FindPrimaryKey()?.Properties
-                .Select(p => p.Name)
-                .ToHashSet() ?? [];
+					schema.Links.Add(new DiagramLink
+					{
+						Source = table,
+						Target = targetTable,
+						Label = foreignKey.Name,
+						SourceType = GetRelationType(foreignKey),
+						TargetType = RelationType.ExactlyOne,
+						DeleteBehavior = (Enums.DeleteBehavior)foreignKey.DeleteBehavior
+					});
+				}
+			}
 
-            var fkPropertyNames = entityType.GetForeignKeys()
-                .SelectMany(fk => fk.Properties)
-                .Select(p => p.Name)
-                .ToHashSet();
+			return schema;
+		}
 
-            var table = new DiagramTable
-            {
-                Name = entityType.ClrType.Name,
-                EntityType = entityType
-            };
+		private static DiagramTable BuildTable(EntityTypeContext entityType)
+		{
+			var table = new DiagramTable
+			{
+				Name = entityType.Name,
+				EntityType = entityType
+			};
 
-            foreach (var property in entityType.GetProperties())
-            {
-                var referenceType = pkPropertyNames.Contains(property.Name) ? ColumnKeyType.PrimaryKey : ColumnKeyType.None;
-                referenceType |= fkPropertyNames.Contains(property.Name) ? ColumnKeyType.ForeignKey : ColumnKeyType.None;
-                referenceType |= property.IsUniqueIndex() ? ColumnKeyType.UniqueKey : ColumnKeyType.None;
+			foreach (var property in entityType.Properties)
+			{
+				var referenceType = property.IsPrimaryKey ? ColumnKeyType.PrimaryKey : ColumnKeyType.None;
+				referenceType |= property.IsForeignKey ? ColumnKeyType.ForeignKey : ColumnKeyType.None;
+				referenceType |= property.IsUnique ? ColumnKeyType.UniqueKey : ColumnKeyType.None;
 
-                table.Columns.Add(new DiagramColumn
-                {
-                    Property = property,
-                    Name = property.Name,
-                    Type = Nullable.GetUnderlyingType(property.ClrType) ?? property.ClrType,
-                    IsNullable = property.IsNullable,
-                    ColumnKeyType = referenceType
-                });
-            }
+				table.Columns.Add(new DiagramColumn
+				{
+					Property = property,
+					Name = property.Name,
+					Type = property.ClrType,
+					IsNullable = property.IsNullable,
+					ColumnKeyType = referenceType
+				});
+			}
 
-            // Include owned entity properties inline
-            foreach (var navigation in entityType.GetNavigations()
-                .Where(n => n.TargetEntityType.IsOwned()))
-            {
-                var owned = navigation.TargetEntityType;
-                foreach (var property in owned.GetProperties()
-                    .Where(p => !p.IsForeignKey() && !p.IsPrimaryKey()))
-                {
-                    var referenceType = property.IsUniqueIndex() ? ColumnKeyType.UniqueKey : ColumnKeyType.None;
-                    table.Columns.Add(new DiagramColumn
-                    {
-                        Property = property,
-                        Name = $"{navigation.Name}_{property.Name}",
-                        Type = Nullable.GetUnderlyingType(property.ClrType) ?? property.ClrType,
-                        IsNullable = property.IsNullable,
-                        ColumnKeyType = referenceType
-                    });
-                }
-            }
+			// Include owned entity properties inline (EF Core only)
+			foreach (var navigation in entityType.GetNavigations()
+				.Where(n => n.TargetEntityType.IsOwned))
+			{
+				var owned = navigation.TargetEntityType;
+				foreach (var property in owned.Properties
+					.Where(p => !p.IsForeignKey && !p.IsPrimaryKey))
+				{
+					var referenceType = property.IsUnique ? ColumnKeyType.UniqueKey : ColumnKeyType.None;
+					table.Columns.Add(new DiagramColumn
+					{
+						Property = property,
+						Name = string.Format("{0}_{1}", navigation.Name, property.Name),
+						Type = property.ClrType,
+						IsNullable = property.IsNullable,
+						ColumnKeyType = referenceType
+					});
+				}
+			}
 
-            return table;
-        }
+			return table;
+		}
 
-        private static EntityRelationshipDiagram BuildEntityRelationshipDiagram(DiagramSchema schema, EntityRelationshipDiagramOptions options)
-        {
-            // Création des nœuds à partir des tables
-            var nodes = BuildEntityRelationNodes(schema, options);
+		private static EntityRelationshipDiagram BuildEntityRelationshipDiagram(DiagramSchema schema, EntityRelationshipDiagramOptions options)
+		{
+			var nodes = BuildEntityRelationNodes(schema, options);
+			var links = BuildEntityRelationLinks(schema, options);
+			return new EntityRelationshipDiagram(nodes, links);
+		}
 
-            // Création des liens à partir des DiagramLinks
-            var links = BuildEntityRelationLinks(schema, options);
+		private static List<EntityRelationNode> BuildEntityRelationNodes(DiagramSchema schema, EntityRelationshipDiagramOptions options)
+		{
+			var nodes = new List<EntityRelationNode>();
+			foreach (var table in schema.Tables)
+			{
+				nodes.Add(new EntityRelationNode(
+					table.Name,
+					BuildEntityRelationColumns(table, options)
+				));
+			}
+			return nodes;
+		}
 
-            // Construction du diagramme
-            return new EntityRelationshipDiagram(nodes, links);
-        }
+		private static List<EntityRelationColumn> BuildEntityRelationColumns(DiagramTable table, EntityRelationshipDiagramOptions options)
+		{
+			var columns = new List<EntityRelationColumn>();
 
-        private static List<EntityRelationNode> BuildEntityRelationNodes(DiagramSchema schema, EntityRelationshipDiagramOptions options)
-        {
-            var nodes = new List<EntityRelationNode>();
-            foreach (var table in schema.Tables)
-            {
-                nodes.Add(new EntityRelationNode(
-                    table.Name,
-                    BuildEntityRelationColumns(table, options)
-                ));
-            }
-            return nodes;
-        }
+			if (!options.IncludeColumns)
+			{
+				return columns;
+			}
 
-        private static List<EntityRelationColumn> BuildEntityRelationColumns(DiagramTable table, EntityRelationshipDiagramOptions options)
-        {
-            var columns = new List<EntityRelationColumn>();
+			var filteredColumns = options.FilterColumnByKeyTypes != ColumnKeyType.None
+				? table.Columns.Where(c => c.ColumnKeyType != ColumnKeyType.None && options.FilterColumnByKeyTypes.HasFlag(c.ColumnKeyType))
+				: table.Columns;
 
-            if (!options.IncludeColumns)
-            {
-                return columns;
-            }
+			foreach (var column in filteredColumns)
+			{
+				var erColumn = new EntityRelationColumn(
+					column.Name,
+					column.Type.Name,
+					options.IncludeColumnKeyTypes ? column.ColumnKeyType : ColumnKeyType.None,
+					options.IncludeColumnComments ? column.Property.Description : string.Empty
+				);
+				columns.Add(erColumn);
+			}
 
-            var filteredColumns = options.FilterColumnByKeyTypes != ColumnKeyType.None
-                ? table.Columns.Where(c => c.ColumnKeyType != ColumnKeyType.None && options.FilterColumnByKeyTypes.HasFlag(c.ColumnKeyType))
-                : table.Columns;
-            foreach (var column in filteredColumns)
-            {
-                var erColumn = new EntityRelationColumn(
-                    column.Name,
-                    column.Type.Name,
-                    options.IncludeColumnKeyTypes ? column.ColumnKeyType : ColumnKeyType.None,
-                    options.IncludeColumnComments ? column.Property.GetDescription() : string.Empty
-                );
-                columns.Add(erColumn);
-            }
+			return columns;
+		}
 
-            return columns;
-        }
+		private static List<EntityRelationLink> BuildEntityRelationLinks(DiagramSchema schema, EntityRelationshipDiagramOptions options)
+		{
+			var links = new List<EntityRelationLink>();
 
-        private static List<EntityRelationLink> BuildEntityRelationLinks(DiagramSchema schema, EntityRelationshipDiagramOptions options)
-        {
-            var links = new List<EntityRelationLink>();
+			if (!options.IncludeLinks)
+			{
+				return links;
+			}
 
-            if (!options.IncludeLinks)
-            {
-                return links;
-            }
+			foreach (var link in schema.Links)
+			{
+				var relationLabel = string.Empty;
 
-            foreach (var link in schema.Links)
-            {
-                var relationLabel = string.Empty;
+				if (options.IncludeLinkLabels)
+				{
+					relationLabel = link.Label;
+				}
 
-                if (options.IncludeLinkLabels)
-                {
-                    relationLabel = link.Label;
-                }
+				if (options.IncludeLinkDeleteBehaviors)
+				{
+					relationLabel = string.Join(" ", relationLabel, string.Format("({0})", link.DeleteBehavior.ToString()));
+				}
 
-                if (options.IncludeLinkDeleteBehaviors)
-                {
-                    relationLabel = string.Join(" ", relationLabel, $"({link.DeleteBehavior.ToString()})");
-                }
-
-                links.Add(new EntityRelationLink(
-                    link.Source.Name,
-                    link.Target.Name,
-                    relationLabel,
-                    link.SourceType,
-                    link.TargetType
-                ));
-            }
-            return links;
-        }
-    }
+				links.Add(new EntityRelationLink(
+					link.Source.Name,
+					link.Target.Name,
+					relationLabel,
+					link.SourceType,
+					link.TargetType
+				));
+			}
+			return links;
+		}
+	}
 }
