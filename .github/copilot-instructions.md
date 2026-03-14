@@ -2,6 +2,30 @@
 
 MermaidDotNet is a comprehensive .NET wrapper library for creating Mermaid flowcharts with full syntax support. The solution includes a core .NET 8 library, unit tests, and sample applications (MVC Web and Blazor) demonstrating usage.
 
+## C# Coding Standards
+
+### Variable Declarations
+- **NEVER use the `var` keyword** - Always use explicit types for variable declarations
+- ✅ Good: `List<Node> nodes = new List<Node>();`
+- ❌ Bad: `var nodes = new List<Node>();`
+- ✅ Good: `string direction = "LR";`
+- ❌ Bad: `var direction = "LR";`
+
+### Code Structure
+- **Always use braces `{ }` for all control statements**, even for single-line if statements and loops
+- ✅ Good:
+  ```csharp
+  if (node != null)
+  {
+      ProcessNode(node);
+  }
+  ```
+- ❌ Bad:
+  ```csharp
+  if (node != null)
+      ProcessNode(node);
+  ```
+
 Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
 
 ## Working Effectively
@@ -128,18 +152,18 @@ using MermaidDotNet.Models;
 public void BasicFlowchartValidation()
 {
     // Arrange - Create a simple flowchart
-    var nodes = new List<Node>
+    List<Node> nodes = new List<Node>
     {
         new("start", "Start", Node.ShapeType.Circle),
         new("process", "Process Data", Node.ShapeType.Rectangle),
         new("end", "End", Node.ShapeType.Stadium)
     };
-    var links = new List<Link>
+    List<Link> links = new List<Link>
     {
         new Link("start", "process", "begin"),
         new Link("process", "end", "complete")
     };
-    var flowchart = new Flowchart("LR", nodes, links);
+    Flowchart flowchart = new Flowchart("LR", nodes, links);
     
     // Act - Generate Mermaid syntax
     string result = flowchart.CalculateFlowchart();
