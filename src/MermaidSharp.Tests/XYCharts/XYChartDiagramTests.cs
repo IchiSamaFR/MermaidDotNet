@@ -38,7 +38,6 @@ config:
         width: 800
         height: 400
         showTitle: true
-        chartOrientation: vertical
 ---
 xychart
 x-axis ""Quarter"" [""Q1"", ""Q2"", ""Q3"", ""Q4""]

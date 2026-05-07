@@ -19,6 +19,6 @@ namespace MermaidSharp.Configs.Themes
         /// Gets the configuration settings for the XY chart theme.
         /// </summary>
         [ThemeVariable]
-        public XYChartThemeChildConfig XYChartConfig { get; } = new XYChartThemeChildConfig();
+        public XYChartThemeChildConfig XYChartConfig { get; set; } = new XYChartThemeChildConfig();
     }
 }
