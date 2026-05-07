@@ -428,6 +428,57 @@ pie showData
     "Fish" : 40
 ```
 
+### XY Chart Example
+
+Example showing a simple XY chart with two series (line and bar):
+
+```csharp
+using MermaidSharp.Diagrams;
+using MermaidSharp.Enums;
+
+// Create the XY chart with titles
+var xyChart = new XYChartDiagram("Sales Over Time", "Month", "Sales");
+xyChart.XAxis.Labels.AddRange(new[] { "Jan", "Feb", "Mar" });
+
+// Add a line series
+var lineSeries = xyChart.AddSeries(XYSeriesType.Line);
+lineSeries.SetPoint("Jan", 120);
+lineSeries.SetPoint("Feb", 150);
+lineSeries.SetPoint("Mar", 170);
+
+// Add a bar series
+var barSeries = xyChart.AddSeries(XYSeriesType.Bar);
+barSeries.SetPoint("Jan", 140);
+barSeries.SetPoint("Feb", 160);
+barSeries.SetPoint("Mar", 180);
+
+string result = xyChart.CalculateDiagram();
+```
+
+Resulting Mermaid code:
+```
+---
+title: Sales Over Time
+---
+xychart
+    x-axis "Month" ["Jan", "Feb", "Mar"]
+    y-axis "Sales"
+    line [120, 150, 170]
+    bar [140, 160, 180]
+```
+
+When rendered in mermaid:
+```mermaid
+---
+title: Sales Over Time
+---
+xychart
+    x-axis "Month" ["Jan", "Feb", "Mar"]
+    y-axis "Sales"
+    line [120, 150, 170]
+    bar [140, 160, 180]
+```
+
 ## EntityFrameworkCore Integration
 
 MermaidSharp provides a dedicated package — **MermaidSharp.EntityFrameworkCore** — that generates entity relationship diagrams automatically from your `DbContext`.
