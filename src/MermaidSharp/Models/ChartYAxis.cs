@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+using System.Globalization;
 
 namespace MermaidSharp.Models
 {
@@ -50,7 +47,7 @@ namespace MermaidSharp.Models
 
             if (Min.HasValue && Max.HasValue)
             {
-                returned += $" {Min?.ToString()} --> {Max?.ToString()}";
+                returned += $" {Min.Value.ToString("G", CultureInfo.InvariantCulture)} --> {Max.Value.ToString("G", CultureInfo.InvariantCulture)}";
             }
 
             return returned;

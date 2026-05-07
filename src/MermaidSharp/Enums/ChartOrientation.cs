@@ -1,6 +1,6 @@
-﻿using MermaidSharp.Attributes;
+using MermaidSharp.Attributes;
 
-namespace MermaidSharp.Configs.Enums
+namespace MermaidSharp.Enums
 {
     /// <summary>
     /// Specifies the orientation of the chart.

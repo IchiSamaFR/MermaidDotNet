@@ -1,8 +1,9 @@
-﻿using MermaidSharp.Enums;
+using MermaidSharp.Enums;
 using MermaidSharp.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
+using System.Linq;
 
 namespace MermaidSharp.Models
 {
@@ -53,6 +54,7 @@ namespace MermaidSharp.Models
         /// Adds a point to the series.
         /// </summary>
         /// <param name="point">The point to add.</param>
+        /// <returns>The current instance for method chaining.</returns>
         public XYSeries AddPoint(double point)
         {
             Points.Add(point);
@@ -75,15 +77,15 @@ namespace MermaidSharp.Models
 		/// </summary>
 		/// <remarks>If the specified index is greater than the current number of points, the collection
 		/// is automatically expanded and new points are initialized to zero.</remarks>
-		/// <param name="index">The zero-based index of the point to set. Must be non-negative.</param>
-		/// <param name="value">The value to assign to the point at the specified index.</param>
-		/// <exception cref="ArgumentOutOfRangeException">Thrown when index is less than zero.</exception>
+        /// <param name="index">The zero-based index of the point to set. Must be non-negative.</param>
+        /// <param name="value">The value to assign to the point at the specified index.</param>
+        /// <returns>The current instance for method chaining.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when index is less than zero.</exception>
 		public XYSeries SetPoint(int index, double value)
         {
             if (index < 0)
                 throw new ArgumentOutOfRangeException(nameof(index), "Index must be non-negative.");
 
-            // Ajoute des zéros jusqu'à atteindre l'index souhaité
             while (Points.Count <= index)
             {
                 Points.Add(0);
@@ -115,7 +117,7 @@ namespace MermaidSharp.Models
         /// </summary>
         public override string ToString()
         {
-            return $"{Type.PrimaryString()} [{string.Join(", ", Points)}]";
+            return $"{Type.PrimaryString()} [{string.Join(", ", Points.Select(i => i.ToString("G", CultureInfo.InvariantCulture)))}]";
         }
     }
 }

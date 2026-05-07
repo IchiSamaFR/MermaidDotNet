@@ -1,5 +1,4 @@
 using MermaidSharp.Configs;
-using MermaidSharp.Configs.Enums;
 using MermaidSharp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -46,7 +45,7 @@ config:
                 Width = 900,
                 Height = 500,
                 ShowTitle = true,
-                ChartOrientationValue = ChartOrientation.Horizontal
+                ChartOrientation = ChartOrientation.Horizontal
             };
 
             string expected = @"---

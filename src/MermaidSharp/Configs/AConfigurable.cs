@@ -70,6 +70,18 @@ namespace MermaidSharp.Configs
         {
             var lst = new List<string>();
 
+            if (value is IThemeVariables themeVars)
+            {
+                if (!string.IsNullOrWhiteSpace(attr.Name))
+                    throw new InvalidOperationException("Theme variable name must be omitted for nested theme variable properties.");
+
+                lst.AddRange(themeVars.GetConfigLines());
+                return lst;
+            }
+
+            if (string.IsNullOrWhiteSpace(attr.Name))
+                throw new InvalidOperationException("Theme variable name is required for non-nested theme variable properties.");
+
             // Handle IEnumerable<string>
             if (value is IEnumerable<string> strList)
             {
@@ -95,10 +107,6 @@ namespace MermaidSharp.Configs
             else if (value is bool boolVal)
             {
                 lst.Add($"{attr.Name}: {(boolVal ? "true" : "false")}");
-            }
-            else if (value is IThemeVariables themeVars)
-            {
-                lst.AddRange(themeVars.GetConfigLines());
             }
 
             return lst;

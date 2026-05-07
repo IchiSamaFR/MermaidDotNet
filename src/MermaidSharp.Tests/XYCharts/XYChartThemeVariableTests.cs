@@ -1,3 +1,5 @@
+using System;
+using MermaidSharp.Attributes;
 using MermaidSharp.Configs.Themes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -72,6 +74,39 @@ themeVariables:
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(expected, result);
+        }
+
+        /// <summary>
+        /// Verifies that unnamed theme variables are rejected for non-nested properties.
+        /// </summary>
+        [TestMethod]
+        public void ToString_WhenThemeVariableNameMissingOnScalarProperty_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            var variables = new InvalidThemeVariables
+            {
+                InvalidValue = "value"
+            };
+
+            // Act & Assert
+            bool hasThrown = false;
+
+            try
+            {
+                variables.ToString();
+            }
+            catch (InvalidOperationException)
+            {
+                hasThrown = true;
+            }
+
+            Assert.IsTrue(hasThrown);
+        }
+
+        private sealed class InvalidThemeVariables : AThemeVariables
+        {
+            [ThemeVariable]
+            public string InvalidValue { get; set; }
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using MermaidSharp.Configs;
+using MermaidSharp.Configs;
 using MermaidSharp.Enums;
+using MermaidSharp.Extensions;
 using MermaidSharp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MermaidSharp.Diagrams
 {
@@ -38,8 +40,8 @@ namespace MermaidSharp.Diagrams
         /// Initializes a new instance of the XYChartDiagram class with the specified title and configuration.
         /// </summary>
         /// <param name="title">The title of the XY chart. If not specified, no title is rendered.</param>
-        /// <param name="titleXAxis">The title of the X-axis. If not specified, no title is rendered.</param>
-        /// <param name="titleYAxis">The title of the Y-axis. If not specified, no title is rendered.</param>
+        /// <param name="titleXAxis">The title of the X-axis. If not specified, <c>xAxis</c> is used.</param>
+        /// <param name="titleYAxis">The title of the Y-axis. If not specified, <c>yAxis</c> is used.</param>
         /// <param name="config">The configuration settings to apply to the XY chart. If null, default settings are used.</param>
         public XYChartDiagram(string title = "", string titleXAxis = null, string titleYAxis = null, XYChartConfig config = null) : base(title, config)
         {
@@ -78,16 +80,11 @@ namespace MermaidSharp.Diagrams
                 Name
             };
 
-            lines.Add(XAxis.ToString());
-            lines.Add(YAxis.ToString());
+            lines.Add(XAxis.ToString().Indent());
+            lines.Add(YAxis.ToString().Indent());
+            lines.AddRange(Series.Select(series => series.ToString()).Indent());
 
-            // Ajoute les séries
-            foreach (var series in Series)
-            {
-                lines.Add(series.ToString());
-            }
-
-            return string.Join(Environment.NewLine, lines);
+            return string.Join(Environment.NewLine, lines.ClearNewLines());
         }
     }
 }

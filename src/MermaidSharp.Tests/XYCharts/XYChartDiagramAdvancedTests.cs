@@ -1,5 +1,6 @@
+using System;
+using System.Globalization;
 using MermaidSharp.Configs;
-using MermaidSharp.Configs.Enums;
 using MermaidSharp.Configs.Themes.Children;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Enums;
@@ -69,7 +70,7 @@ namespace MermaidSharp.Tests.XYCharts
                 ShowTitle = true,
                 XAxis = XAxisPosition.Bottom,
                 YAxis = YAxisPosition.Left,
-                ChartOrientationValue = ChartOrientation.Horizontal,
+                ChartOrientation = ChartOrientation.Horizontal,
                 PlotReservedSpacePercent = 15,
                 ShowDataLabel = true,
                 ShowDataLabelOutsideBar = false
@@ -133,11 +134,11 @@ config:
         errorTextColor: ""#00ff00""
 ---
 xychart
-x-axis ""Month"" [""Jan"", ""Feb"", ""Mar"", ""Apr""]
-y-axis ""Revenue""
-bar [20, 30, 40, 50]
-line [25, 35, 45, 55]
-line [22, 32, 42, 52]";
+    x-axis ""Month"" [""Jan"", ""Feb"", ""Mar"", ""Apr""]
+    y-axis ""Revenue""
+    bar [20, 30, 40, 50]
+    line [25, 35, 45, 55]
+    line [22, 32, 42, 52]";
 
             // Act
             string result = diagram.CalculateDiagram();
@@ -161,8 +162,8 @@ line [22, 32, 42, 52]";
 title: Labels Only
 ---
 xychart
-x-axis ""Quarter"" [""Q1"", ""Q2"", ""Q3""]
-y-axis ""yAxis""";
+    x-axis ""Quarter"" [""Q1"", ""Q2"", ""Q3""]
+    y-axis ""yAxis""";
 
             // Act
             string result = diagram.CalculateDiagram();
@@ -185,8 +186,8 @@ y-axis ""yAxis""";
 title: Y Axis Only
 ---
 xychart
-x-axis ""xAxis"" []
-y-axis ""Amount""";
+    x-axis ""xAxis"" []
+    y-axis ""Amount""";
 
             // Act
             string result = diagram.CalculateDiagram();
@@ -194,6 +195,62 @@ y-axis ""Amount""";
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(expected, result);
+        }
+
+        /// <summary>
+        /// Verifies that CalculateDiagram starts directly with the chart name when no header content is present.
+        /// </summary>
+        [TestMethod]
+        public void CalculateDiagram_WithoutTitleAndConfig_DoesNotContainLeadingBlankLine()
+        {
+            // Arrange
+            var diagram = new XYChartDiagram();
+
+            // Act
+            string result = diagram.CalculateDiagram();
+
+            // Assert
+            Assert.IsNotNull(result);
+            string expected = string.Join(Environment.NewLine, new[]
+            {
+                "xychart",
+                "    x-axis \"xAxis\" []",
+                "    y-axis \"yAxis\""
+            });
+            Assert.AreEqual(expected, result);
+        }
+
+        /// <summary>
+        /// Verifies that numeric values are serialized using invariant culture for XY chart output.
+        /// </summary>
+        [TestMethod]
+        public void CalculateDiagram_InvariantCultureSerializesDecimalValuesWithDot()
+        {
+            // Arrange
+            var previousCulture = CultureInfo.CurrentCulture;
+            var previousUiCulture = CultureInfo.CurrentUICulture;
+
+            try
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("fr-FR");
+                CultureInfo.CurrentUICulture = new CultureInfo("fr-FR");
+                var diagram = new XYChartDiagram("Culture Test", "X", "Y");
+                diagram.YAxis.Min = 0.5;
+                diagram.YAxis.Max = 1.75;
+                diagram.AddSeries(XYSeriesType.Line).AddPoint(1.5);
+
+                // Act
+                string result = diagram.CalculateDiagram();
+
+                // Assert
+                StringAssert.Contains(result, "y-axis \"Y\" 0.5 --> 1.75");
+                StringAssert.Contains(result, "line [1.5]");
+            }
+            finally
+            {
+                CultureInfo.CurrentCulture = previousCulture;
+                CultureInfo.CurrentUICulture = previousUiCulture;
+            }
         }
     }
 }

@@ -40,12 +40,12 @@ config:
         showTitle: true
 ---
 xychart
-x-axis ""Quarter"" [""Q1"", ""Q2"", ""Q3"", ""Q4""]
-y-axis ""Value""
-bar [5, 15, 25, 20]
-line [10, 12, 23, 14]
-line [8, 18, 28, 23]
-line [12, 22, 32, 30]";
+    x-axis ""Quarter"" [""Q1"", ""Q2"", ""Q3"", ""Q4""]
+    y-axis ""Value""
+    bar [5, 15, 25, 20]
+    line [10, 12, 23, 14]
+    line [8, 18, 28, 23]
+    line [12, 22, 32, 30]";
 
             // Act
             string result = diagram.CalculateDiagram();

@@ -1,12 +1,6 @@
-﻿using MermaidSharp.Attributes;
-using MermaidSharp.Configs.Enums;
+using MermaidSharp.Attributes;
 using MermaidSharp.Configs.Themes;
 using MermaidSharp.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MermaidSharp.Configs
 {
@@ -70,7 +64,7 @@ namespace MermaidSharp.Configs
         /// <summary>
         /// Gets or sets the chart orientation.
         /// </summary>
-        public ChartOrientation? ChartOrientationValue { get; set; }
+        public ChartOrientation? ChartOrientation { get; set; }
 
         [ConfigVariable("plotReservedSpacePercent")]
         /// <summary>

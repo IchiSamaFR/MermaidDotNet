@@ -1,11 +1,6 @@
-﻿using MermaidSharp.Attributes;
+using MermaidSharp.Attributes;
 using MermaidSharp.Extensions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace MermaidSharp.Configs.Themes.Children
 {
