@@ -17,7 +17,7 @@ namespace MermaidSharp.Attributes
 		/// Initializes a new instance of the <see cref="ThemeVariableAttribute"/> class.
 		/// </summary>
 		/// <param name="name">Mermaid variable name.</param>
-		public ThemeVariableAttribute(string name)
+		public ThemeVariableAttribute(string name = null)
 		{
 			Name = name;
 		}

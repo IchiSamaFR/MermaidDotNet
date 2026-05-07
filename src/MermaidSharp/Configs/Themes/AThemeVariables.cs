@@ -15,9 +15,6 @@ namespace MermaidSharp.Configs.Themes
 	{
 		private readonly string Name = "themeVariables";
 
-		private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyInfo[]> PropertiesCache
-			= new System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyInfo[]>();
-
 		/// <summary>
 		/// Gets or sets a value indicating whether dark mode is enabled.
 		/// Affects how derived colors are calculated.
@@ -161,68 +158,6 @@ namespace MermaidSharp.Configs.Themes
 			paramsList.Insert(0, $"{Name}:");
 
 			return paramsList;
-		}
-
-		/// <summary>
-		/// Retrieves a list of configuration parameters as formatted strings based on the current settings.
-		/// Handles string, double, bool, and List&lt;string&gt; properties decorated with <see cref="ThemeVariableAttribute"/>.
-		/// </summary>
-		/// <returns>A list of strings representing the configuration parameters.</returns>
-		protected override List<string> GetThemeVariableParams()
-		{
-			var lst = new List<string>();
-			var props = PropertiesCache.GetOrAdd(
-				GetType(),
-				t => t.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-					  .Where(p => p.GetCustomAttribute<ThemeVariableAttribute>() != null)
-					  .ToArray()
-			);
-
-			foreach (var prop in props)
-			{
-				var attr = prop.GetCustomAttribute<ThemeVariableAttribute>();
-				var value = prop.GetValue(this);
-				if (value == null)
-					continue;
-
-				lst.AddRange(GetProperty(attr, value));
-			}
-
-			return lst;
-		}
-
-		private IEnumerable<string> GetProperty(ThemeVariableAttribute attr, object value)
-		{
-			var lst = new List<string>();
-
-			// Handle IEnumerable<string>
-			if (value is IEnumerable<string> strList)
-			{
-				var items = strList.ToList();
-				for (int i = 0; i < items.Count; i++)
-				{
-					var item = items[i];
-					if (!string.IsNullOrEmpty(item))
-						lst.Add($"{attr.Name.Replace("{index}", (i + 1).ToString())}: \"{item}\"");
-				}
-			}
-			// Handle string
-			else if (value is string strVal && !string.IsNullOrEmpty(strVal))
-			{
-				lst.Add($"{attr.Name}: \"{strVal}\"");
-			}
-			// Handle double
-			else if (value is double dblVal)
-			{
-				lst.Add($"{attr.Name}: {dblVal.ToString("G", CultureInfo.InvariantCulture)}");
-			}
-			// Handle bool
-			else if (value is bool boolVal)
-			{
-				lst.Add($"{attr.Name}: {(boolVal ? "true" : "false")}");
-			}
-
-			return lst;
 		}
 	}
 }
