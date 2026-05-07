@@ -73,14 +73,14 @@ namespace MermaidSharp.Configs
             if (value is IThemeVariables themeVars)
             {
                 if (!string.IsNullOrWhiteSpace(attr.Name))
-                    throw new InvalidOperationException("Theme variable name must be omitted for nested theme variable properties.");
+                    throw new InvalidOperationException("Theme variable name must be empty for properties implementing IThemeVariables.");
 
                 lst.AddRange(themeVars.GetConfigLines());
                 return lst;
             }
 
             if (string.IsNullOrWhiteSpace(attr.Name))
-                throw new InvalidOperationException("Theme variable name is required for non-nested theme variable properties.");
+                throw new InvalidOperationException("Theme variable name is required for scalar theme variable properties.");
 
             // Handle IEnumerable<string>
             if (value is IEnumerable<string> strList)
