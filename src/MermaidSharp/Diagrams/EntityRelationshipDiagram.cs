@@ -1,4 +1,5 @@
 using MermaidSharp.Configs;
+using MermaidSharp.Models;
 
 namespace MermaidSharp.Diagrams
 {
@@ -8,7 +9,7 @@ namespace MermaidSharp.Diagrams
 	/// <remarks>Use this class to define and generate entity-relationship diagrams for visualization or
 	/// documentation purposes. The diagram is constructed from a collection of entity nodes and relationship links, and
 	/// supports Mermaid's ER diagram features.</remarks>
-	public class EntityRelationshipDiagram : ADiagram<EntityRelationshipConfig>
+	public class EntityRelationshipDiagram : ADiagram<EntityRelationshipConfig, EntityRelationNode, EntityRelationLink>
 	{
 		/// <summary>
 		/// Gets the Mermaid name associated with the current instance.

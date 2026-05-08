@@ -13,7 +13,7 @@ namespace MermaidSharp.Diagrams
 	/// <remarks>Use this class to construct and generate Mermaid class diagrams programmatically. The diagram
 	/// can include multiple namespaces, classes, and links between them. Inherit from this class to extend or customize
 	/// class diagram generation.</remarks>
-	public class ClassDiagram : ADiagram<ClassDiagramConfig>
+	public class ClassDiagram : ADiagram<ClassDiagramConfig, ClassNode, ClassLink>
 	{
 		/// <summary>
 		/// Gets the Mermaid name associated with the current instance.

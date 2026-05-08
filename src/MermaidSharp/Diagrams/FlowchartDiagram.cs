@@ -15,7 +15,7 @@ namespace MermaidSharp.Diagrams
 	/// for custom directions and subgraph grouping. The diagram can be rendered as a Mermaid syntax string for
 	/// visualization or export. Only the directions "LR", "TD", "BT", "RL", and "TB" are supported. Attempting to use
 	/// an unsupported direction will result in a NotSupportedException.</remarks>
-	public class FlowchartDiagram : ADiagram<FlowChartConfig>
+	public class FlowchartDiagram : ADiagram<FlowChartConfig, FlowNode, FlowLink>
 	{
 		/// <summary>
 		/// Gets the Mermaid name associated with the current instance.

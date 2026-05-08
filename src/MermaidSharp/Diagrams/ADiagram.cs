@@ -11,17 +11,20 @@ namespace MermaidSharp.Diagrams
 	/// Represents the base class for diagram types that consist of nodes and links, providing common functionality for
 	/// diagram generation.
 	/// </summary>
-	public abstract class ADiagram<TConfig> : AMermaid<TConfig>
+	public abstract class ADiagram<TConfig, TNode, TLink> : AMermaid<TConfig>
 		where TConfig : IConfig, new()
+		where TNode : ANode
+		where TLink : ALink
 	{
 		/// <summary>
 		/// Gets the collection of nodes contained in the current structure.
 		/// </summary>
-		public List<ANode> Nodes { get; } = new List<ANode>();
+		public List<TNode> Nodes { get; } = new List<TNode>();
+
 		/// <summary>
 		/// Gets the collection of links associated with the current instance.
 		/// </summary>
-		public List<ALink> Links { get; } = new List<ALink>();
+		public List<TLink> Links { get; } = new List<TLink>();
 
 		/// <summary>
 		/// Initializes a new instance of the ADiagram class with the specified title.
