@@ -1,3 +1,4 @@
+using MermaidSharp.AutoDiagram.Enums;
 using MermaidSharp.AutoDiagram.Extensions;
 using MermaidSharp.AutoDiagram.Models.ClassDiagrams;
 using MermaidSharp.Diagrams;
@@ -172,40 +173,75 @@ namespace MermaidSharp.AutoDiagram
         {
             var links = new List<ClassLink>();
 
-            var typeProperties = nodeContext.Properties;
-            foreach (var property in typeProperties)
-            {
-                foreach (var type in property.Type.Types)
-                {
-                    if (!typeNames.ContainsKey(type.Name))
-                        continue;
-
-                    links.Add(new ClassLink(property.Name, type.Name, ClassLinkType.Association));
-                }
-            }
-
-            // Inheritance
-            var baseType = nodeContext.Type.Type.BaseType;
-            if (baseType != null && baseType != typeof(object) && typeNames.ContainsKey(baseType.Name))
-            {
-                links.Add(new ClassLink(baseType.Name, nodeContext.Type.Name, ClassLinkType.Inheritance));
-            }
-
-            // Interface implementation
-            foreach (var iface in nodeContext.Type.Type.GetInterfaces())
-            {
-                if (typeNames.ContainsKey(iface.Name))
-                {
-                    links.Add(new ClassLink(iface.Name, nodeContext.Type.Name, ClassLinkType.Realization));
-                }
-            }
+			links.AddRange(BuildLinksAssociates(nodeContext, typeNames, options));
+			links.AddRange(BuildLinksHerited(nodeContext, typeNames, options));
+			links.AddRange(BuildLinksInterfaces(nodeContext, typeNames, options));
 
             return links;
         }
-        #endregion
 
-        #region Visibility Helpers
-        private static ClassPropertyVisibility GetClassVisibility(Type type)
+		private static IEnumerable<ClassLink> BuildLinksAssociates(ClassNodeContext nodeContext, Dictionary<string, ClassNodeContext> typeNames, ClassDiagramOptions options)
+		{
+			if (!options.IncludeLinks.HasFlag(ClassLinkOption.Association))
+			{
+                return Array.Empty<ClassLink>();
+			}
+
+			var links = new List<ClassLink>();
+			var typeProperties = nodeContext.Properties;
+			string linkLabel = options.IncludeLinksLabels ? ClassLinkOption.Association.ToString() : string.Empty;
+			foreach (var property in typeProperties)
+			{
+				foreach (var type in property.Type.Types)
+				{
+					if (!typeNames.ContainsKey(type.Name))
+						continue;
+
+					links.Add(new ClassLink(property.Name, type.Name, ClassLinkType.Association, linkLabel));
+				}
+			}
+            return links;
+		}
+
+		private static IEnumerable<ClassLink> BuildLinksHerited(ClassNodeContext nodeContext, Dictionary<string, ClassNodeContext> typeNames, ClassDiagramOptions options)
+		{
+			if (!options.IncludeLinks.HasFlag(ClassLinkOption.Inherited))
+			{
+				return Array.Empty<ClassLink>();
+			}
+
+			var links = new List<ClassLink>();
+			var baseType = nodeContext.Type.Type.BaseType;
+			string linkLabel = options.IncludeLinksLabels ? ClassLinkOption.Inherited.ToString() : string.Empty;
+			if (baseType != null && baseType != typeof(object) && typeNames.ContainsKey(baseType.Name))
+			{
+				links.Add(new ClassLink(baseType.Name, nodeContext.Type.Name, ClassLinkType.Inheritance, linkLabel));
+			}
+            return links;
+		}
+
+		private static IEnumerable<ClassLink> BuildLinksInterfaces(ClassNodeContext nodeContext, Dictionary<string, ClassNodeContext> typeNames, ClassDiagramOptions options)
+		{
+			if (!options.IncludeLinks.HasFlag(ClassLinkOption.Interface))
+			{
+				return Array.Empty<ClassLink>();
+			}
+
+			var links = new List<ClassLink>();
+			string linkLabel = options.IncludeLinksLabels ? ClassLinkOption.Interface.ToString() : string.Empty;
+			foreach (var iface in nodeContext.Type.Type.GetInterfaces())
+			{
+				if (typeNames.ContainsKey(iface.Name))
+				{
+					links.Add(new ClassLink(iface.Name, nodeContext.Type.Name, ClassLinkType.Realization, linkLabel));
+				}
+			}
+            return links;
+		}
+		#endregion
+
+		#region Visibility Helpers
+		private static ClassPropertyVisibility GetClassVisibility(Type type)
         {
             if (type.IsPublic || type.IsNestedPublic)
                 return ClassPropertyVisibility.Public;

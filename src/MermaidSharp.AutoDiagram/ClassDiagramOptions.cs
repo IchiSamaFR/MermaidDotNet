@@ -1,3 +1,4 @@
+using MermaidSharp.AutoDiagram.Enums;
 using MermaidSharp.AutoDiagram.Extensions;
 using MermaidSharp.Enums;
 using System;
@@ -28,9 +29,19 @@ namespace MermaidSharp.AutoDiagram
         public ClassPropertyVisibility IncludeMethodsVisibility { get; set; } = ClassPropertyVisibilityExtensions.All;
 
         /// <summary>
-        /// Gets or sets a predicate used to filter which types are included in the diagram.
-        /// When null, all types are included.
+        /// Gets or sets the option for including class links.
         /// </summary>
-        public Func<Type, bool> TypeFilter { get; set; } = null;
+        public ClassLinkOption IncludeLinks { get; set; } = ClassLinkOption.All;
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether to include labels for class links in the diagram.
+        /// </summary>
+        public bool IncludeLinksLabels { get; set; } = true;
+
+		/// <summary>
+		/// Gets or sets a predicate used to filter which types are included in the diagram.
+		/// When null, all types are included.
+		/// </summary>
+		public Func<Type, bool> TypeFilter { get; set; } = null;
     }
 }
