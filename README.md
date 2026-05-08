@@ -40,6 +40,20 @@ MermaidSharp is a comprehensive .NET wrapper to create [Mermaid](https://mermaid
 - **Slices**: Define slices with a label, a positive numeric value, and an optional CSS color
 - **Configuration**: Customize label text position (0.0–1.0) and visual theme
 
+### Quadrant Charts
+ - **Axis Labels**: Set custom labels for X and Y axes (left, right, top, bottom)
+ - **Quadrant Labels**: Name each quadrant individually
+ - **Data Points**: Place points with custom labels, coordinates, colors, and sizes
+ - **Configuration**: Customize chart appearance and quadrant meaning
+
+
+### XY Charts
+- **Title and Axis Labels**: Optional title and labels for X and Y axes
+- **Series Types**: Line, Bar, Scatter
+- **Data Points**: Define data points for each series with X and Y values
+- **Configuration**: Customize axis scaling, grid lines, and visual theme
+- **Multiple Series**: Support for multiple series of different types in the same chart
+
 ## Getting Started
 
 ### Prerequisites
@@ -426,6 +440,66 @@ pie showData
     "Cats" : 85
     "Birds" : 35
     "Fish" : 40
+```
+
+### Quadrant Chart Example
+
+Example showing a quadrant chart with axis and quadrant labels and a few points:
+
+```csharp
+using MermaidSharp.Diagrams;
+
+// Create the quadrant chart with axis and quadrant labels
+var chart = new QuadrantChartDiagram()
+chart.XAxisLeft = "Low";
+chart.XAxisRight = "High";
+chart.YAxisBottom = "Bottom";
+chart.YAxisTop = "Top";
+chart.Quadrant1 = "Q1";
+chart.Quadrant2 = "Q2";
+chart.Quadrant3 = "Q3";
+chart.Quadrant4 = "Q4";
+
+// Add points
+chart.Points.Add(new QuadrantChartPoint { Label = "A", X = 0.1, Y = 0.9, Color = "#ff0000", Radius = 10 });
+chart.Points.Add(new QuadrantChartPoint { Label = "B", X = 0.5, Y = 0.5, Color = "#00ff00", Radius = 8 });
+chart.Points.Add(new QuadrantChartPoint { Label = "C", X = 0.9, Y = 0.1, Color = "#0000ff", Radius = 12 });
+chart.Points.Add(new QuadrantChartPoint { Label = "D", X = 0.3, Y = 0.7 });
+chart.Points.Add(new QuadrantChartPoint { Label = "E", X = 0.7, Y = 0.3, Color = "#aaaaaa" });
+
+string result = chart.CalculateDiagram();
+```
+
+Resulting Mermaid code:
+```
+quadrantChart
+    x-axis Low --> High
+    y-axis Bottom --> Top
+    quadrant-1 Q1
+    quadrant-2 Q2
+    quadrant-3 Q3
+    quadrant-4 Q4
+    A: [0.1, 0.9] color: #ff0000, radius: 10
+    B: [0.5, 0.5] color: #00ff00, radius: 8
+    C: [0.9, 0.1] color: #0000ff, radius: 12
+    D: [0.3, 0.7]
+    E: [0.7, 0.3] color: #aaaaaa
+```
+
+When rendered in mermaid:
+```mermaid
+quadrantChart
+    x-axis Low --> High
+    y-axis Bottom --> Top
+    quadrant-1 Q1
+    quadrant-2 Q2
+    quadrant-3 Q3
+    quadrant-4 Q4
+    A: [0.1, 0.9] color: #ff0000, radius: 10
+    B: [0.5, 0.5] color: #00ff00, radius: 8
+    C: [0.9, 0.1] color: #0000ff, radius: 12
+    D: [0.3, 0.7]
+    E: [0.7, 0.3] color: #aaaaaa
 ```
 
 ### XY Chart Example
