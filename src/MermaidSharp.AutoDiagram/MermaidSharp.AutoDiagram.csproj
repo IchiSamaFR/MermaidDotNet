@@ -1,13 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net48;net8.0</TargetFrameworks>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MermaidSharp\MermaidSharp.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<IsPackable>true</IsPackable>
+		<PackageDescription>MermaidSharp.AutoDiagram is a .NET extension for MermaidSharp that automatically generates Mermaid class diagrams from .NET models using reflection. Ideal for visualizing your class structure and relationships in markdown or HTML with mermaid.js.</PackageDescription>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MermaidSharp\MermaidSharp.csproj" />
+	</ItemGroup>
 
 </Project>
