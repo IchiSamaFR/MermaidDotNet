@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -31,6 +32,9 @@ namespace MermaidSharp.AutoDiagram.Models.ClassDiagrams
             ? Type.GetGenericTypeDefinition().Name.Split('`')[0]
             : Type.Name;
 
+        /// <summary>
+        /// Gets the fully qualified name, including the reflected type if available.
+        /// </summary>
         public string FullName => Name + (ReflectedType != null ? $"~{ReflectedType.FullName}~" : string.Empty);
 
         /// <summary>

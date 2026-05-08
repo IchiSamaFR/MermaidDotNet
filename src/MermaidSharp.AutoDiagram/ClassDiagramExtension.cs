@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Xml.Linq;
 
 namespace MermaidSharp.AutoDiagram
 {
@@ -23,24 +22,48 @@ namespace MermaidSharp.AutoDiagram
         /// <param name="options">Options controlling what is included in the diagram. If null, default options are used.</param>
         /// <returns>A <see cref="ClassDiagram"/> representing the types and relationships found in the assembly.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> is null.</exception>
-        public static ClassDiagram ToMermaidClassDiagram(this Assembly assembly, ClassDiagramOptions? options = null)
+        public static ClassDiagram ToMermaidClassDiagram(this Assembly assembly, ClassDiagramOptions options = null)
         {
-            if (assembly == null)
-                throw new ArgumentNullException(nameof(assembly));
+            return new[] { assembly }.ToMermaidClassDiagram(options);
+        }
 
-            options ??= new ClassDiagramOptions();
+        /// <summary>
+        /// Generates a Mermaid class diagram from all public types in the specified assemblies.
+        /// </summary>
+        /// <param name="assemblies">The assemblies to inspect. Cannot be null.</param>
+        /// <param name="options">Options controlling what is included in the diagram. If null, default options are used.</param>
+        /// <returns>A <see cref="ClassDiagram"/> representing the types and relationships found in the assemblies.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assemblies"/> is null.</exception>
+        public static ClassDiagram ToMermaidClassDiagram(this IEnumerable<Assembly> assemblies, ClassDiagramOptions options = null)
+        {
+            if (assemblies == null)
+                throw new ArgumentNullException(nameof(assemblies));
+
+            if (options == null)
+                options = new ClassDiagramOptions();
 
             var diagram = new ClassDiagram();
-            var classNamespace = BuildClassAssemblyContext(assembly, options);
+            var classNamespaces = assemblies.Select(a => BuildClassAssemblyContext(a, options)).ToList();
+            diagram.Namespaces.AddRange(classNamespaces.Select(MapToClassNamespace));
 
-            diagram.Namespaces.Add(MapToClassNamespace(classNamespace));
-
-            var dictionary = classNamespace.ClassDiagrams.ToDictionary(c => c.Type.Name, c => c);
-            foreach (var nodeContext in classNamespace.ClassDiagrams)
+            var dictionary = classNamespaces.SelectMany(cn => cn.ClassDiagrams).ToDictionary(c => c.Type.Name, c => c);
+            foreach (var nodeContext in dictionary.Values)
             {
                 diagram.Links.AddRange(BuildLinks(nodeContext, dictionary, options));
             }
             return diagram;
+        }
+
+        /// <summary>
+        /// Generates a Mermaid class diagram from the specified type.
+        /// </summary>
+        /// <param name="type">The type to include in the diagram. Cannot be null.</param>
+        /// <param name="options">Options controlling what is included in the diagram. If null, default options are used.</param>
+        /// <returns>A <see cref="ClassDiagram"/> representing the provided type and its relationships.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type"/> is null.</exception>
+        public static ClassDiagram ToMermaidClassDiagram(this Type type, ClassDiagramOptions options = null)
+        {
+            return new[] { type }.ToMermaidClassDiagram(options);
         }
 
         /// <summary>
@@ -50,12 +73,13 @@ namespace MermaidSharp.AutoDiagram
         /// <param name="options">Options controlling what is included in the diagram. If null, default options are used.</param>
         /// <returns>A <see cref="ClassDiagram"/> representing the provided types and their relationships.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="types"/> is null.</exception>
-        public static ClassDiagram ToMermaidClassDiagram(this IEnumerable<Type> types, ClassDiagramOptions? options = null)
+        public static ClassDiagram ToMermaidClassDiagram(this IEnumerable<Type> types, ClassDiagramOptions options = null)
         {
             if (types == null)
                 throw new ArgumentNullException(nameof(types));
 
-            options ??= new ClassDiagramOptions();
+            if (options == null)
+                options = new ClassDiagramOptions();
 
             var diagram = new ClassDiagram();
             var contexts = types.Select(t => BuildClassNodeContext(t, options)).ToList();

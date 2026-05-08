@@ -31,6 +31,6 @@ namespace MermaidSharp.AutoDiagram
         /// Gets or sets a predicate used to filter which types are included in the diagram.
         /// When null, all types are included.
         /// </summary>
-        public Func<Type, bool>? TypeFilter { get; set; } = null;
+        public Func<Type, bool> TypeFilter { get; set; } = null;
     }
 }
