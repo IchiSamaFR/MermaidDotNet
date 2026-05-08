@@ -184,6 +184,22 @@ namespace MermaidSharp.AutoDiagram
                 }
             }
 
+            // Inheritance
+            var baseType = nodeContext.Type.Type.BaseType;
+            if (baseType != null && baseType != typeof(object) && typeNames.ContainsKey(baseType.Name))
+            {
+                links.Add(new ClassLink(baseType.Name, nodeContext.Type.Name, ClassLinkType.Inheritance));
+            }
+
+            // Interface implementation
+            foreach (var iface in nodeContext.Type.Type.GetInterfaces())
+            {
+                if (typeNames.ContainsKey(iface.Name))
+                {
+                    links.Add(new ClassLink(iface.Name, nodeContext.Type.Name, ClassLinkType.Realization));
+                }
+            }
+
             return links;
         }
         #endregion
