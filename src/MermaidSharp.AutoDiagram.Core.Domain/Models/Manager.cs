@@ -1,4 +1,4 @@
-namespace MermaidSharp.AutoDiagram.Tests.Models
+namespace MermaidSharp.AutoDiagram.Core.Tests.Models
 {
     public class Manager : Employee
     {

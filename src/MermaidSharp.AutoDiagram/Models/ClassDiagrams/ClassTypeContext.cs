@@ -18,12 +18,7 @@ namespace MermaidSharp.AutoDiagram.Models.ClassDiagrams
         /// <summary>
         /// Gets the generic argument contexts.
         /// </summary>
-        public ClassTypeContext ReflectedType { get; }
-
-        /// <summary>
-        /// Gets the collection of types associated with the current instance.
-        /// </summary>
-        public List<Type> Types { get; }
+        public ClassTypeContext ArgumentType { get; }
 
         /// <summary>
         /// Gets the simple name of the type (e.g. "List" for List&lt;string&gt;).
@@ -35,45 +30,28 @@ namespace MermaidSharp.AutoDiagram.Models.ClassDiagrams
         /// <summary>
         /// Gets the fully qualified name, including the reflected type if available.
         /// </summary>
-        public string FullName => Name + (ReflectedType != null ? $"~{ReflectedType.FullName}~" : string.Empty);
+        public string FullName => Name + (ArgumentType != null ? $"~{ArgumentType.FullName}~" : string.Empty);
 
         /// <summary>
         /// Initializes a new instance from a Type.
         /// </summary>
         /// <param name="type">The type.</param>
-        public ClassTypeContext(Type type, Type reflectedType = null)
+        public ClassTypeContext(Type type)
         {
-            if (type.IsGenericType)
+            Type = type;
+
+            if (!Type.IsGenericType)
             {
-                Type = type.GetGenericTypeDefinition(); // List<>
-                if (reflectedType == null)
-                {
-                    var genericArg = type.GetGenericArguments().FirstOrDefault();
-                    ReflectedType = genericArg != null ? new ClassTypeContext(genericArg) : null;
-                }
-                else
-                {
-                    ReflectedType = new ClassTypeContext(reflectedType);
-                }
-            }
-            else
-            {
-                Type = type;
-                ReflectedType = null;
+                return;
             }
 
-            Types = new List<Type> { Type };
-            if (ReflectedType != null)
-                Types.AddRange(ReflectedType.Types);
-        }
+            var argument = Type.GetGenericArguments().FirstOrDefault();
+            if (argument == null)
+            {
+                return;
+            }
 
-        /// <summary>
-        /// Initializes a new instance from a PropertyInfo.
-        /// </summary>
-        /// <param name="property">The property info.</param>
-        public ClassTypeContext(PropertyInfo property)
-            : this(property.PropertyType, property.ReflectedType)
-        {
+            ArgumentType = new ClassTypeContext(argument);
         }
 
         /// <summary>
