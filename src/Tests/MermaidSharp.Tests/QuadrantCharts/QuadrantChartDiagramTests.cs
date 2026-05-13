@@ -10,8 +10,6 @@ namespace MermaidSharp.Tests.QuadrantCharts
     [TestClass]
     public class QuadrantChartDiagramTests
     {
-        private string expected;
-
         /// <summary>
         /// Verifies that CalculateDiagram returns the diagram name.
         /// </summary>
@@ -20,13 +18,13 @@ namespace MermaidSharp.Tests.QuadrantCharts
         {
             // Arrange
             var diagram = new QuadrantChartDiagram();
-            expected = "quadrantChart";
+            var expected = "quadrantChart";
 
             // Act
             var result = diagram.CalculateDiagram();
 
             // Assert
-            Assert.IsTrue(result.Contains(expected));
+            Assert.Contains(result, expected);
         }
 
         /// <summary>
@@ -38,7 +36,7 @@ namespace MermaidSharp.Tests.QuadrantCharts
             // Arrange
             var diagram = new QuadrantChartDiagram();
             diagram.Points.Add(new QuadrantChartPoint { Label = "Point 1", X = 0.75, Y = 0.80 });
-            expected = @"quadrantChart
+            var expected = @"quadrantChart
     Point 1: [0.75, 0.8]";
 
             // Act
@@ -56,7 +54,7 @@ namespace MermaidSharp.Tests.QuadrantCharts
         {
             // Arrange
             var diagram = new QuadrantChartDiagram { XAxisLeft = "Low", XAxisRight = "High" };
-            expected = @"quadrantChart
+            var expected = @"quadrantChart
     x-axis Low --> High";
 
             // Act
@@ -74,7 +72,7 @@ namespace MermaidSharp.Tests.QuadrantCharts
         {
             // Arrange
             var diagram = new QuadrantChartDiagram { YAxisBottom = "Low", YAxisTop = "High" };
-            expected = @"quadrantChart
+            var expected = @"quadrantChart
     y-axis Low --> High";
 
             // Act
@@ -98,7 +96,7 @@ namespace MermaidSharp.Tests.QuadrantCharts
                 Quadrant3 = "Bottom Left",
                 Quadrant4 = "Bottom Right"
             };
-            expected = @"quadrantChart
+            var expected = @"quadrantChart
     quadrant-1 Top Right
     quadrant-2 Top Left
     quadrant-3 Bottom Left
@@ -127,7 +125,7 @@ namespace MermaidSharp.Tests.QuadrantCharts
                 Color = "#ff3300",
                 Radius = 12
             });
-            expected = @"quadrantChart
+            var expected = @"quadrantChart
     Point A: [0.9345, 0] color: #ff3300, radius: 12";
 
             // Act

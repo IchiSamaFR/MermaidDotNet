@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace MermaidSharp.Models
 {
@@ -60,8 +61,8 @@ namespace MermaidSharp.Models
             if (double.IsNaN(Y) || double.IsInfinity(Y) || Y < 0 || Y > 1)
                 throw new ArgumentOutOfRangeException(nameof(Y), "Point Y coordinate must be a finite number between 0 and 1.");
             var style = BuildStyle();
-            string xStr = X.ToString().Replace(',', '.');
-            string yStr = Y.ToString().Replace(',', '.');
+            string xStr = X.ToString("G", CultureInfo.InvariantCulture);
+            string yStr = Y.ToString("G", CultureInfo.InvariantCulture);
             return string.IsNullOrEmpty(style)
                 ? $"{Label}: [{xStr}, {yStr}]"
                 : $"{Label}: [{xStr}, {yStr}] {style}";

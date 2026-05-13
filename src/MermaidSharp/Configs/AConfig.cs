@@ -3,6 +3,7 @@ using MermaidSharp.Configs.Themes;
 using MermaidSharp.Enums;
 using MermaidSharp.Extensions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -138,6 +139,9 @@ namespace MermaidSharp.Configs
             if (lst.Count == 0)
                 return lst;
 
+            if (string.IsNullOrEmpty(SectionName))
+                throw new InvalidOperationException("SectionName must be defined in the derived class when using ConfigVariable attributes.");
+
             lst = lst.Indent();
             lst.Insert(0, $"{SectionName}:");
             return lst;
@@ -147,39 +151,41 @@ namespace MermaidSharp.Configs
         {
             var lst = new List<string>();
 
-            if (value is IEnumerable<string> strList && !(value is string))
+            if (value is IEnumerable enumerableVal && !(value is string))
             {
-                var items = strList.ToList();
-                for (int i = 0; i < items.Count; i++)
+                var enumerableCastedVal = enumerableVal.Cast<object>().Select(o => o?.ToString()).ToList();
+                foreach (var item in enumerableCastedVal)
                 {
-                    var item = items[i];
-                    if (!string.IsNullOrEmpty(item))
-                        lst.Add($"{attr.Name}: \"{item}\"");
+                    lst.AddRange(GetConfigProperty(attr, item));
                 }
-            }
-            else if (value is string strVal && !string.IsNullOrEmpty(strVal))
-            {
-                lst.Add($"{attr.Name}: \"{strVal}\"");
             }
             else if (value is double dblVal)
             {
                 lst.Add($"{attr.Name}: {dblVal.ToString("G", CultureInfo.InvariantCulture)}");
             }
-            else if (value is int intVal)
-            {
-                lst.Add($"{attr.Name}: {intVal}");
-            }
-            else if (value is bool boolVal)
-            {
-                lst.Add($"{attr.Name}: {(boolVal ? "true" : "false")}");
-            }
             else if (value is float floatVal)
             {
                 lst.Add($"{attr.Name}: {floatVal.ToString("G", CultureInfo.InvariantCulture)}");
             }
+            else if (value is decimal decVal)
+            {
+                lst.Add($"{attr.Name}: {decVal.ToString("G", CultureInfo.InvariantCulture)}");
+            }
+            else if (value is bool boolVal)
+            {
+                lst.Add($"{attr.Name}: {boolVal.ToString().ToLowerInvariant()}");
+            }
+            else if (value is string strVal && !string.IsNullOrEmpty(strVal))
+            {
+                lst.Add($"{attr.Name}: \"{strVal}\"");
+            }
             else if (value is Enum enumVal)
             {
                 lst.Add($"{attr.Name}: {enumVal.PrimaryString()}");
+            }
+            else
+            {
+                lst.Add($"{attr.Name}: {value.ToString()}");
             }
 
             return lst;

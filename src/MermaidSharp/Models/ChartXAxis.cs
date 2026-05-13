@@ -32,6 +32,10 @@ namespace MermaidSharp.Models
             }
         }
 
+        /// <summary>
+        /// Returns a string that represents the current object, including its title and labels formatted for Mermaid syntax.
+        /// </summary>
+        /// <returns>A string representation of the current object in Mermaid syntax.</returns>
         public override string ToString()
         {
             var returned = "x-axis";

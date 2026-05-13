@@ -36,6 +36,10 @@ namespace MermaidSharp.Models
             Max = max;
         }
 
+        /// <summary>
+        /// Returns a string that represents the current object, including its title and value range formatted for Mermaid syntax.
+        /// </summary>
+        /// <returns>A string representation of the current object.</returns>
         public override string ToString()
         {
             var returned = "y-axis";

@@ -89,8 +89,10 @@ namespace MermaidSharp.Configs
                 for (int i = 0; i < items.Count; i++)
                 {
                     var item = items[i];
-                    if (!string.IsNullOrEmpty(item))
-                        lst.Add($"{attr.Name.Replace("{index}", (i + 1).ToString())}: \"{item}\"");
+                    if (string.IsNullOrEmpty(item))
+                        continue;
+
+                    lst.Add($"{attr.Name.Replace("{index}", (i + 1).ToString())}: \"{item}\"");
                 }
             }
             // Handle string

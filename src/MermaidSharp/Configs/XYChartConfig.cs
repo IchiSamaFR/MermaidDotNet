@@ -17,71 +17,71 @@ namespace MermaidSharp.Configs
         /// </summary>
         protected override string SectionName => "xyChart";
 
-        [ConfigVariable("width")]
         /// <summary>
         /// Gets or sets the chart width.
         /// </summary>
+        [ConfigVariable("width")]
         public int? Width { get; set; }
 
-        [ConfigVariable("height")]
         /// <summary>
         /// Gets or sets the chart height.
         /// </summary>
+        [ConfigVariable("height")]
         public int? Height { get; set; }
 
-        [ConfigVariable("titlePadding")]
         /// <summary>
         /// Gets or sets the title's top and bottom padding.
         /// </summary>
+        [ConfigVariable("titlePadding")]
         public int? TitlePadding { get; set; }
 
-        [ConfigVariable("titleFontSize")]
         /// <summary>
         /// Gets or sets the font size of the title.
         /// </summary>
+        [ConfigVariable("titleFontSize")]
         public int? TitleFontSize { get; set; }
 
-        [ConfigVariable("showTitle")]
         /// <summary>
         /// Gets or sets a value indicating whether the title is displayed.
         /// </summary>
+        [ConfigVariable("showTitle")]
         public bool? ShowTitle { get; set; }
 
-        [ConfigVariable("xAxis")]
         /// <summary>
         /// Gets or sets the X axis configuration.
         /// </summary>
+        [ConfigVariable("xAxis")]
         public XAxisPosition? XAxis { get; set; }
 
-        [ConfigVariable("yAxis")]
         /// <summary>
         /// Gets or sets the Y axis configuration.
         /// </summary>
+        [ConfigVariable("yAxis")]
         public YAxisPosition? YAxis { get; set; }
 
 
-        [ConfigVariable("chartOrientation")]
         /// <summary>
         /// Gets or sets the chart orientation.
         /// </summary>
+        [ConfigVariable("chartOrientation")]
         public ChartOrientation? ChartOrientation { get; set; }
 
-        [ConfigVariable("plotReservedSpacePercent")]
         /// <summary>
         /// Gets or sets the minimum reserved space percentage for plots inside the chart.
         /// </summary>
+        [ConfigVariable("plotReservedSpacePercent")]
         public int? PlotReservedSpacePercent { get; set; }
 
-        [ConfigVariable("showDataLabel")]
         /// <summary>
         /// Gets or sets a value indicating whether to display the data label inside the bar.
         /// </summary>
+        [ConfigVariable("showDataLabel")]
         public bool? ShowDataLabel { get; set; }
 
-        [ConfigVariable("showDataLabelOutsideBar")]
         /// <summary>
         /// Gets or sets a value indicating whether to display the data label outside the bar.
         /// </summary>
+        [ConfigVariable("showDataLabelOutsideBar")]
         public bool? ShowDataLabelOutsideBar { get; set; }
 
 

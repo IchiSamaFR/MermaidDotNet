@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net48;net8.0</TargetFrameworks>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net48;net8.0</TargetFrameworks>
+		<IsTestProject>true</IsTestProject>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+	</PropertyGroup>
 
 </Project>

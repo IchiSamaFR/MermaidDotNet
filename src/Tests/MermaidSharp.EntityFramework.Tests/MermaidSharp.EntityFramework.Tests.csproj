@@ -2,10 +2,7 @@
 	
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
-
-		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
-
 		<NoWarn>$(NoWarn);MSTEST0001;CS1591</NoWarn>
 	</PropertyGroup>
 

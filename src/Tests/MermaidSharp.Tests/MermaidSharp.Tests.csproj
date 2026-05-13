@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net48;net8.0</TargetFrameworks>
-		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
 		<NoWarn>$(NoWarn);MSTEST0001;CS1591</NoWarn>
 	</PropertyGroup>

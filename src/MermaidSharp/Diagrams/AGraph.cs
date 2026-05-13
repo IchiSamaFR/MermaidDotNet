@@ -16,7 +16,7 @@ namespace MermaidSharp.Diagrams
 		/// </summary>
 		/// <param name="title">The title to assign to the graph. If not specified, an empty string is used.</param>
 		/// <param name="config">The configuration settings to apply to the graph. If null, default configuration is used.</param>
-		public AGraph(string title = "", TConfig config = default) : base(title, config)
+		protected AGraph(string title = "", TConfig config = default) : base(title, config)
 		{
 		}
 	}
