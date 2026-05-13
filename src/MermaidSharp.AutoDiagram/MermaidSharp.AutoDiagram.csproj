@@ -1,40 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFrameworks>net48;net8.0</TargetFrameworks>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net48;net8.0</TargetFrameworks>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<IsPackable>true</IsPackable>
-		<PackageDescription>MermaidSharp.AutoDiagram is a .NET extension for MermaidSharp that automatically generates Mermaid class diagrams from .NET models using reflection. Ideal for visualizing your class structure and relationships in markdown or HTML with mermaid.js.</PackageDescription>
-	</PropertyGroup>
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <PackageDescription>MermaidSharp.AutoDiagram is a .NET extension for MermaidSharp that automatically generates Mermaid class diagrams from .NET models using reflection. Ideal for visualizing your class structure and relationships in markdown or HTML with mermaid.js.</PackageDescription>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\MermaidSharp\MermaidSharp.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\MermaidSharp\MermaidSharp.csproj" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Diagrams\ClassDiagramExtension.cs">
-	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
-	  </Compile>
-	  <Compile Update="Diagrams\FlowchartDiagramExtension.cs">
-	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
-	  </Compile>
-	  <Compile Update="Options\ClassDiagramOptions.cs">
-	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
-	  </Compile>
-	  <Compile Update="Options\ClassLinkOptions.cs">
-	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
-	  </Compile>
-	  <Compile Update="Options\ClassMethodOptions.cs">
-	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
-	  </Compile>
-	  <Compile Update="Options\ClassPropertyOptions.cs">
-	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
-	  </Compile>
-	  <Compile Update="Options\FlowchartDiagramOptions.cs">
-	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
-	  </Compile>
-	</ItemGroup>
+    <ItemGroup>
+      <Compile Update="Diagrams\ClassDiagramExtension.cs">
+        <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Diagrams\FlowchartDiagramExtension.cs">
+        <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Options\ClassDiagramOptions.cs">
+        <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Options\ClassLinkOptions.cs">
+        <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Options\ClassMethodOptions.cs">
+        <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Options\ClassPropertyOptions.cs">
+        <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Options\FlowchartDiagramOptions.cs">
+        <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+      </Compile>
+    </ItemGroup>
 
 </Project>

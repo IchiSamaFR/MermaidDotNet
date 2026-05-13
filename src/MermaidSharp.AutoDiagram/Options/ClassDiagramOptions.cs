@@ -1,4 +1,4 @@
-using MermaidSharp.AutoDiagram.Options;
+﻿using MermaidSharp.AutoDiagram.Options;
 using MermaidSharp.Enums;
 using System;
 using System.Collections.Generic;
