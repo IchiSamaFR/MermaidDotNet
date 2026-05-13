@@ -11,19 +11,19 @@ namespace MermaidSharp.Enums
 	{
 #pragma warning disable CS1591
 		[MermaidEnum("")]
-		None,
-
-		[MermaidEnum("+")]
-		Public,
+		None = 0,
 
 		[MermaidEnum("-")]
-		Private,
+		Private = 1,
 
 		[MermaidEnum("#")]
-		Protected,
+		Protected = 2,
 
 		[MermaidEnum("~")]
-		Internal
+        Internal = 3,
+
+        [MermaidEnum("+")]
+        Public = 4
 #pragma warning restore CS1591
-	}
+    }
 }
