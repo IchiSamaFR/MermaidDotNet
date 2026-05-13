@@ -1,4 +1,4 @@
-namespace MermaidSharp.AutoDiagram.Core.Tests.Models
+namespace MermaidSharp.AutoDiagram.Tests.Models
 {
     /// <summary>
     /// Represents a person with various properties and methods for testing.

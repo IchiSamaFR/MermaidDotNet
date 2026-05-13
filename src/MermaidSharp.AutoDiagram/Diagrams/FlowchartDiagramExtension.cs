@@ -9,7 +9,7 @@ using MermaidSharp.AutoDiagram.Options;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Models;
 
-namespace MermaidSharp.AutoDiagram
+namespace MermaidSharp.AutoDiagram.Diagrams
 {
 	/// <summary>
 	/// Provides extension methods for converting assemblies into Mermaid flowchart diagrams.
@@ -42,14 +42,18 @@ namespace MermaidSharp.AutoDiagram
 				.ToList();
 			nodesContent.AddRange(nodes);
 
-			foreach (var assembly in assemblies)
+			var links = new List<FlowLink>();
+            foreach (var assembly in assemblies)
 			{
 				var referencedAssemblies = assembly.GetReferencedAssemblies();
-				flowchartDiagram.Links.AddRange(referencedAssemblies
-					.Select(r => new FlowLink(assembly.GetName().Name, r.Name)));
-			}
+				links.AddRange(referencedAssemblies
+                    .Select(r => new FlowLink(assembly.GetName().Name, r.Name)));
+            }
+            flowchartDiagram.Links.AddRange(links
+				.OrderBy(l => l.SourceNode)
+				.ThenBy(l => l.DestinationNode));
 
-			return flowchartDiagram;
+            return flowchartDiagram;
 		}
 	}
 }

@@ -1,13 +1,14 @@
-﻿using MermaidSharp.AutoDiagram.Core.Tests.Models;
-using MermaidSharp.AutoDiagram.Enums;
+﻿using MermaidSharp.AutoDiagram.Enums;
 using MermaidSharp.AutoDiagram.Options;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using MermaidSharp.AutoDiagram.Tests.Models;
+using MermaidSharp.AutoDiagram.Diagrams;
 
-namespace MermaidSharp.AutoDiagram.Core.Tests.ClassDiagrams
+namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
 {
     /// <summary>
     /// Tests for <see cref="ClassDiagramExtension.ToMermaidClassDiagram(IEnumerable{Type}, ClassDiagramOptions)"/>.
@@ -205,18 +206,18 @@ namespace MermaidSharp.AutoDiagram.Core.Tests.ClassDiagrams
         {
             // Arrange
             var assembly = typeof(Employee).Assembly;
-            var whiteListe = new List<Type> { typeof(Employee), typeof(Manager), typeof(Person) };
+            var whiteList = new List<Type> { typeof(Employee), typeof(Manager), typeof(Person) };
 			var options = new ClassDiagramOptions()
 			{
 				LinkOptions = new ClassLinkOptions()
 				{
 					IncludeLinks = ClassLinkOption.All
                 },
-                AssemblyClassFilter = (type) => whiteListe.Contains(type)
+                AssemblyClassFilter = (type) => whiteList.Contains(type)
 			};
 
             var expected = @"classDiagram
-    namespace MermaidSharp.AutoDiagram.Core.Domain {
+    namespace MermaidSharp.AutoDiagram.Tests.Models {
         class Employee {
             #Int32 Age
             ~Int32 InternalId
@@ -336,12 +337,12 @@ namespace MermaidSharp.AutoDiagram.Core.Tests.ClassDiagrams
             {
                 MethodOptions = new ClassMethodOptions()
                 {
-                    IncludeVisibility = ClassPropertyVisibility.None
+                    IncludeVisibility = new List<ClassPropertyVisibility>()
                 }
             };
 
             var expected = @"classDiagram
-    namespace MermaidSharp.AutoDiagram.Core.Domain {
+    namespace MermaidSharp.AutoDiagram.Tests.Models {
         class Department~T~ {
             +List~T~ Members
             +String Name
@@ -402,16 +403,16 @@ namespace MermaidSharp.AutoDiagram.Core.Tests.ClassDiagrams
 			{
 				MethodOptions = new ClassMethodOptions()
 				{
-					IncludeVisibility = ClassPropertyVisibility.None
+					IncludeVisibility = new List<ClassPropertyVisibility> { ClassPropertyVisibility.None }
 				},
                 PropertyOptions = new ClassPropertyOptions()
                 {
-                    IncludeVisibility = ClassPropertyVisibility.None
+                    IncludeVisibility = new List<ClassPropertyVisibility> { ClassPropertyVisibility.None }
                 },
-                IncludeClassesVisibility = ClassPropertyVisibility.Public
+                IncludeClassesVisibility = new List<ClassPropertyVisibility> { ClassPropertyVisibility.Public }
 			};
             var expected = @"classDiagram
-    namespace MermaidSharp.AutoDiagram.Core.Domain {
+    namespace MermaidSharp.AutoDiagram.Tests.Models {
         class Department~T~
         class Employee
         class IContactable

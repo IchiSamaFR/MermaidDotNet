@@ -1,3 +1,3 @@
 # MermaidSharp.AutoDiagram
 
-MermaidSharp.AutoDiagram est une bibliothèque .NET qui étend MermaidSharp pour générer automatiquement des diagrammes de classes Mermaid à partir de vos modèles .NET via la réflexion. Utilisez-la pour visualiser la structure de vos classes et leurs relations sous forme de diagrammes Mermaid, intégrables dans du markdown ou affichables en HTML avec mermaid.js.
+MermaidSharp.AutoDiagram is a .NET library that extends MermaidSharp to automatically generate Mermaid class diagrams from your .NET models using reflection. Use it to visualize the structure of your classes and their relationships as Mermaid diagrams that can be embedded in Markdown or displayed in HTML with mermaid.js.

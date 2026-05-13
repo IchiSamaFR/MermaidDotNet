@@ -13,4 +13,28 @@
 		<ProjectReference Include="..\MermaidSharp\MermaidSharp.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Diagrams\ClassDiagramExtension.cs">
+	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+	  </Compile>
+	  <Compile Update="Diagrams\FlowchartDiagramExtension.cs">
+	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+	  </Compile>
+	  <Compile Update="Options\ClassDiagramOptions.cs">
+	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+	  </Compile>
+	  <Compile Update="Options\ClassLinkOptions.cs">
+	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+	  </Compile>
+	  <Compile Update="Options\ClassMethodOptions.cs">
+	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+	  </Compile>
+	  <Compile Update="Options\ClassPropertyOptions.cs">
+	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+	  </Compile>
+	  <Compile Update="Options\FlowchartDiagramOptions.cs">
+	    <CustomToolNamespace>MermaidSharp.AutoDiagram</CustomToolNamespace>
+	  </Compile>
+	</ItemGroup>
+
 </Project>

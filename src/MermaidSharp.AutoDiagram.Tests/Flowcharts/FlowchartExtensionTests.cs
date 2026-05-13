@@ -4,11 +4,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using MermaidSharp.AutoDiagram.Core.Tests.Models;
+using MermaidSharp.AutoDiagram.Diagrams;
+using MermaidSharp.AutoDiagram.Tests.Models;
 using MermaidSharp.Diagrams;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MermaidSharp.AutoDiagram.Core.Tests.Flowchars
+namespace MermaidSharp.AutoDiagram.Tests.Flowcharts
 {
 	[TestClass]
 	public class FlowchartExtensionTests
@@ -28,8 +29,8 @@ namespace MermaidSharp.AutoDiagram.Core.Tests.Flowchars
     end
     MermaidSharp-->mscorlib
     MermaidSharp-->System.Core
-    MermaidSharp.AutoDiagram-->mscorlib
     MermaidSharp.AutoDiagram-->MermaidSharp
+    MermaidSharp.AutoDiagram-->mscorlib
     MermaidSharp.AutoDiagram-->System.Core";
 #else
 			var expected = @"flowchart LR
@@ -37,14 +38,14 @@ namespace MermaidSharp.AutoDiagram.Core.Tests.Flowchars
     MermaidSharp[MermaidSharp]
     MermaidSharp.AutoDiagram[MermaidSharp.AutoDiagram]
     end
-    MermaidSharp-->System.Runtime
     MermaidSharp-->System.Collections
     MermaidSharp-->System.Collections.Concurrent
     MermaidSharp-->System.Linq
-    MermaidSharp.AutoDiagram-->System.Runtime
+    MermaidSharp-->System.Runtime
     MermaidSharp.AutoDiagram-->MermaidSharp
     MermaidSharp.AutoDiagram-->System.Collections
-    MermaidSharp.AutoDiagram-->System.Linq";
+    MermaidSharp.AutoDiagram-->System.Linq
+    MermaidSharp.AutoDiagram-->System.Runtime";
 
 #endif
 

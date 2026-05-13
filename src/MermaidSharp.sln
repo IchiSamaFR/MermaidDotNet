@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MermaidSharp.AutoDiagram", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MermaidSharp.AutoDiagram.Tests", "MermaidSharp.AutoDiagram.Tests\MermaidSharp.AutoDiagram.Tests.csproj", "{3689204D-64E4-3681-C04D-D4635650526A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MermaidSharp.AutoDiagram.Core.Domain", "MermaidSharp.AutoDiagram.Core.Domain\MermaidSharp.AutoDiagram.Core.Domain.csproj", "{8E4514FE-E5F3-4824-9208-09DCC4DF06AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MermaidSharp.AutoDiagram.Tests.Models", "MermaidSharp.AutoDiagram.Tests.Models\MermaidSharp.AutoDiagram.Tests.Models.csproj", "{52B179DB-7C49-1C57-EC58-4EE46DCAB982}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,10 +74,10 @@ Global
 		{3689204D-64E4-3681-C04D-D4635650526A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3689204D-64E4-3681-C04D-D4635650526A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3689204D-64E4-3681-C04D-D4635650526A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E4514FE-E5F3-4824-9208-09DCC4DF06AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E4514FE-E5F3-4824-9208-09DCC4DF06AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E4514FE-E5F3-4824-9208-09DCC4DF06AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E4514FE-E5F3-4824-9208-09DCC4DF06AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B179DB-7C49-1C57-EC58-4EE46DCAB982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B179DB-7C49-1C57-EC58-4EE46DCAB982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B179DB-7C49-1C57-EC58-4EE46DCAB982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B179DB-7C49-1C57-EC58-4EE46DCAB982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,7 +89,7 @@ Global
 		{A6C0175F-42CC-E00B-BD41-D0A7BB6FEED8} = {59CCB380-EAA5-4E5B-A12A-DF064BC16BEE}
 		{1DB3D834-AFDB-4772-9E9C-AC6B4BC6ABAC} = {59CCB380-EAA5-4E5B-A12A-DF064BC16BEE}
 		{3689204D-64E4-3681-C04D-D4635650526A} = {59CCB380-EAA5-4E5B-A12A-DF064BC16BEE}
-		{8E4514FE-E5F3-4824-9208-09DCC4DF06AA} = {59CCB380-EAA5-4E5B-A12A-DF064BC16BEE}
+		{52B179DB-7C49-1C57-EC58-4EE46DCAB982} = {59CCB380-EAA5-4E5B-A12A-DF064BC16BEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6ECA903-DCDD-4E3C-8E8D-EC5CBACC2C7D}
