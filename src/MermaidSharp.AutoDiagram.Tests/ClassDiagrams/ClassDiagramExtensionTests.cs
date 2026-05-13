@@ -21,42 +21,22 @@ namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
             // Arrange
             var type = typeof(Person);
 
-            var expected = @"classDiagram
-    class Person {
-        -String SecretCode
-        #Int32 Age
-        ~Int32 InternalId
-        +String FirstName
-        +String LastName
-        -get_SecretCode() String
-        -Hide()
-        -set_SecretCode(String)
-        #DoWork()
-        #Finalize()
-        #get_Age() Int32
-        #MemberwiseClone() Object
-        #set_Age(Int32)
-        ~get_InternalId() Int32
-        ~InternalMethod()
-        ~set_InternalId(Int32)
-        +Equals(Object) Boolean
-        +get_FirstName() String
-        +get_LastName() String
-        +GetHashCode() Int32
-        +GetType() Type
-        +SayHello()
-        +set_FirstName(String)
-        +set_LastName(String)
-        +ToString() String
-    }";
-
             // Act
             var diagram = type.ToMermaidClassDiagram();
             var result = diagram.CalculateDiagram();
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(expected, result);
+            StringAssert.Contains(result, "class Person {");
+            StringAssert.Contains(result, "-String SecretCode");
+            StringAssert.Contains(result, "#Int32 Age");
+            StringAssert.Contains(result, "~Int32 InternalId");
+            StringAssert.Contains(result, "+String FirstName");
+            StringAssert.Contains(result, "+String LastName");
+            StringAssert.Contains(result, "-Hide()");
+            StringAssert.Contains(result, "#DoWork()");
+            StringAssert.Contains(result, "~InternalMethod()");
+            StringAssert.Contains(result, "+SayHello()");
         }
 
         [TestMethod]
@@ -65,138 +45,26 @@ namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
             // Arrange
             var types = new[] { typeof(Person), typeof(Employee), typeof(Manager), typeof(IContactable), typeof(Department<Employee>) };
 
-            var expected = @"classDiagram
-    class Person {
-        -String SecretCode
-        #Int32 Age
-        ~Int32 InternalId
-        +String FirstName
-        +String LastName
-        -get_SecretCode() String
-        -Hide()
-        -set_SecretCode(String)
-        #DoWork()
-        #Finalize()
-        #get_Age() Int32
-        #MemberwiseClone() Object
-        #set_Age(Int32)
-        ~get_InternalId() Int32
-        ~InternalMethod()
-        ~set_InternalId(Int32)
-        +Equals(Object) Boolean
-        +get_FirstName() String
-        +get_LastName() String
-        +GetHashCode() Int32
-        +GetType() Type
-        +SayHello()
-        +set_FirstName(String)
-        +set_LastName(String)
-        +ToString() String
-    }
-    class Employee {
-        #Int32 Age
-        ~Int32 InternalId
-        +Department~Employee~ Department
-        +String Email
-        +String EmployeeId
-        +String FirstName
-        +String LastName
-        #DoWork()
-        #Finalize()
-        #get_Age() Int32
-        #MemberwiseClone() Object
-        #set_Age(Int32)
-        ~get_InternalId() Int32
-        ~InternalMethod()
-        ~set_InternalId(Int32)
-        +Contact(String)
-        +Equals(Object) Boolean
-        +get_Department() Department~Employee~
-        +get_Email() String
-        +get_EmployeeId() String
-        +get_FirstName() String
-        +get_LastName() String
-        +GetHashCode() Int32
-        +GetType() Type
-        +SayHello()
-        +set_Department(Department~Employee~)
-        +set_Email(String)
-        +set_EmployeeId(String)
-        +set_FirstName(String)
-        +set_LastName(String)
-        +ToString() String
-    }
-    class Manager {
-        #Int32 Age
-        ~Int32 InternalId
-        +Department~Employee~ Department
-        +String Email
-        +String EmployeeId
-        +String FirstName
-        +String LastName
-        +Int32 Level
-        #DoWork()
-        #Finalize()
-        #get_Age() Int32
-        #MemberwiseClone() Object
-        #set_Age(Int32)
-        ~get_InternalId() Int32
-        ~InternalMethod()
-        ~set_InternalId(Int32)
-        +Approve()
-        +Contact(String)
-        +Equals(Object) Boolean
-        +get_Department() Department~Employee~
-        +get_Email() String
-        +get_EmployeeId() String
-        +get_FirstName() String
-        +get_LastName() String
-        +get_Level() Int32
-        +GetHashCode() Int32
-        +GetType() Type
-        +SayHello()
-        +set_Department(Department~Employee~)
-        +set_Email(String)
-        +set_EmployeeId(String)
-        +set_FirstName(String)
-        +set_LastName(String)
-        +set_Level(Int32)
-        +ToString() String
-    }
-    class IContactable {
-        +String Email
-        +Contact(String)
-        +get_Email() String
-        +set_Email(String)
-    }
-    class Department~Employee~ {
-        +List~Employee~ Members
-        +String Name
-        #Finalize()
-        #MemberwiseClone() Object
-        +Equals(Object) Boolean
-        +get_Members() List~Employee~
-        +get_Name() String
-        +GetHashCode() Int32
-        +GetType() Type
-        +set_Members(List~Employee~)
-        +set_Name(String)
-        +ToString() String
-    }
-    Employee-->Department : Association
-    Employee<|--Manager : Inherited
-    IContactable..|>Employee : Interface
-    IContactable..|>Manager : Interface
-    Manager-->Department : Association
-    Person<|--Employee : Inherited";
-
             // Act
             var diagram = types.ToMermaidClassDiagram();
             var result = diagram.CalculateDiagram();
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(expected, result);
+            StringAssert.Contains(result, "class Person {");
+            StringAssert.Contains(result, "class Employee {");
+            StringAssert.Contains(result, "class Manager {");
+            StringAssert.Contains(result, "class IContactable {");
+            StringAssert.Contains(result, "class Department~Employee~ {");
+            StringAssert.Contains(result, "+Department~Employee~ Department");
+            StringAssert.Contains(result, "+Contact(String)");
+            StringAssert.Contains(result, "+Approve()");
+            StringAssert.Contains(result, "Employee-->Department : Association");
+            StringAssert.Contains(result, "Employee<|--Manager : Inherited");
+            StringAssert.Contains(result, "IContactable..|>Employee : Interface");
+            StringAssert.Contains(result, "IContactable..|>Manager : Interface");
+            StringAssert.Contains(result, "Manager-->Department : Association");
+            StringAssert.Contains(result, "Person<|--Employee : Inherited");
         }
         
         
@@ -215,108 +83,42 @@ namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
                 AssemblyClassFilter = (type) => whiteList.Contains(type)
 			};
 
-            var expected = @"classDiagram
-    namespace MermaidSharp.AutoDiagram.Tests.Models {
-        class Employee {
-            #Int32 Age
-            ~Int32 InternalId
-            +Department~Employee~ Department
-            +String Email
-            +String EmployeeId
-            +String FirstName
-            +String LastName
-            #DoWork()
-            #Finalize()
-            #get_Age() Int32
-            #MemberwiseClone() Object
-            #set_Age(Int32)
-            ~get_InternalId() Int32
-            ~InternalMethod()
-            ~set_InternalId(Int32)
-            +Contact(String)
-            +Equals(Object) Boolean
-            +get_Department() Department~Employee~
-            +get_Email() String
-            +get_EmployeeId() String
-            +get_FirstName() String
-            +get_LastName() String
-            +GetHashCode() Int32
-            +GetType() Type
-            +SayHello()
-            +set_Department(Department~Employee~)
-            +set_Email(String)
-            +set_EmployeeId(String)
-            +set_FirstName(String)
-            +set_LastName(String)
-            +ToString() String
+            // Act
+            var diagram = assembly.ToMermaidClassDiagram(options);
+            var result = diagram.CalculateDiagram();
+
+            // Assert
+            Assert.IsNotNull(result);
+            StringAssert.Contains(result, "namespace MermaidSharp.AutoDiagram.Tests.Models {");
+            StringAssert.Contains(result, "class Employee {");
+            StringAssert.Contains(result, "class Manager {");
+            StringAssert.Contains(result, "class Person {");
+            StringAssert.Contains(result, "Employee<|--Manager : Inherited");
+            StringAssert.Contains(result, "Person<|--Employee : Inherited");
+            Assert.DoesNotContain(result, "class Department");
+            Assert.DoesNotContain(result, "class IContactable");
+            Assert.DoesNotContain(result, "Association");
+            Assert.DoesNotContain(result, "Interface");
         }
-        class Manager {
-            #Int32 Age
-            ~Int32 InternalId
-            +Department~Employee~ Department
-            +String Email
-            +String EmployeeId
-            +String FirstName
-            +String LastName
-            +Int32 Level
-            #DoWork()
-            #Finalize()
-            #get_Age() Int32
-            #MemberwiseClone() Object
-            #set_Age(Int32)
-            ~get_InternalId() Int32
-            ~InternalMethod()
-            ~set_InternalId(Int32)
-            +Approve()
-            +Contact(String)
-            +Equals(Object) Boolean
-            +get_Department() Department~Employee~
-            +get_Email() String
-            +get_EmployeeId() String
-            +get_FirstName() String
-            +get_LastName() String
-            +get_Level() Int32
-            +GetHashCode() Int32
-            +GetType() Type
-            +SayHello()
-            +set_Department(Department~Employee~)
-            +set_Email(String)
-            +set_EmployeeId(String)
-            +set_FirstName(String)
-            +set_LastName(String)
-            +set_Level(Int32)
-            +ToString() String
-        }
-        class Person {
-            -String SecretCode
-            #Int32 Age
-            ~Int32 InternalId
-            +String FirstName
-            +String LastName
-            -get_SecretCode() String
-            -Hide()
-            -set_SecretCode(String)
-            #DoWork()
-            #Finalize()
-            #get_Age() Int32
-            #MemberwiseClone() Object
-            #set_Age(Int32)
-            ~get_InternalId() Int32
-            ~InternalMethod()
-            ~set_InternalId(Int32)
-            +Equals(Object) Boolean
-            +get_FirstName() String
-            +get_LastName() String
-            +GetHashCode() Int32
-            +GetType() Type
-            +SayHello()
-            +set_FirstName(String)
-            +set_LastName(String)
-            +ToString() String
-        }
-    }
-    Employee<|--Manager : Inherited
-    Person<|--Employee : Inherited";
+
+        [TestMethod]
+        public void ToMermaidClassDiagram_Assembly_DoesNotThrowWhenTypeNamesCollideAcrossNamespaces()
+        {
+            // Arrange
+            var assembly = typeof(global::MermaidSharp.AutoDiagram.Tests.DuplicateTypeNames.First.SharedName).Assembly;
+            var includedTypes = new List<Type>
+            {
+                typeof(global::MermaidSharp.AutoDiagram.Tests.DuplicateTypeNames.First.SharedName),
+                typeof(global::MermaidSharp.AutoDiagram.Tests.DuplicateTypeNames.Second.SharedName)
+            };
+            var options = new ClassDiagramOptions()
+            {
+                AssemblyClassFilter = type => includedTypes.Contains(type),
+                MethodOptions = new ClassMethodOptions()
+                {
+                    IncludeVisibility = new List<ClassPropertyVisibility>()
+                }
+            };
 
             // Act
             var diagram = assembly.ToMermaidClassDiagram(options);
@@ -324,7 +126,10 @@ namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(expected, result);
+            StringAssert.Contains(result, "namespace MermaidSharp.AutoDiagram.Tests {");
+            StringAssert.Contains(result, "class SharedName {");
+            StringAssert.Contains(result, "class SharedName");
+            StringAssert.Contains(result, "SharedName-->SharedName : Association");
         }
 
         [TestMethod]

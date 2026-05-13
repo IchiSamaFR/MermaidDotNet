@@ -15,7 +15,7 @@ namespace MermaidSharp.AutoDiagram.Constants
         /// <summary>
         /// Defines the order of class property visibility levels for sorting purposes in Mermaid diagrams.
         /// </summary>
-        public static readonly ClassPropertyVisibility[] ProperiesSortOrder = new ClassPropertyVisibility[]
+        public static readonly ClassPropertyVisibility[] PropertiesSortOrder = new ClassPropertyVisibility[]
         {
             ClassPropertyVisibility.Private,
             ClassPropertyVisibility.Protected,
