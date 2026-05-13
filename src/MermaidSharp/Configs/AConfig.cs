@@ -1,12 +1,12 @@
-﻿using System;
+﻿using MermaidSharp.Attributes;
+using MermaidSharp.Configs.Themes;
+using MermaidSharp.Enums;
+using MermaidSharp.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using MermaidSharp.Attributes;
-using MermaidSharp.Configs.Themes;
-using MermaidSharp.Enums;
-using MermaidSharp.Extensions;
 
 namespace MermaidSharp.Configs
 {

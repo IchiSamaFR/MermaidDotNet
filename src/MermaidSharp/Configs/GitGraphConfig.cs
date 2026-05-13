@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using MermaidSharp.Attributes;
+﻿using MermaidSharp.Attributes;
 using MermaidSharp.Configs.Themes;
 using MermaidSharp.Enums;
-using MermaidSharp.Extensions;
 
 namespace MermaidSharp.Configs
 {

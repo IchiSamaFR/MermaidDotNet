@@ -1,4 +1,3 @@
-using System;
 using MermaidSharp.Configs;
 using MermaidSharp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

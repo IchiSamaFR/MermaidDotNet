@@ -1,7 +1,7 @@
+using MermaidSharp.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MermaidSharp.Constants;
 
 namespace MermaidSharp.Extensions
 {

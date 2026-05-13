@@ -1,7 +1,7 @@
 #if NET8_0_OR_GREATER
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.ComponentModel;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MermaidSharp.EntityFrameworkCore.Extensions
 {

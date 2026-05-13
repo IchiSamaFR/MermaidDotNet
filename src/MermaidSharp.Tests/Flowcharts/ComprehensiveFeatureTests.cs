@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Enums;
 using MermaidSharp.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace MermaidSharp.Tests.Flowcharts
 {

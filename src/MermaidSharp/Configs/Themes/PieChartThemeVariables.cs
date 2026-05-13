@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MermaidSharp.Attributes;
+﻿using MermaidSharp.Attributes;
 using MermaidSharp.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MermaidSharp.Configs.Themes
 {

@@ -1,5 +1,5 @@
-using System;
 using MermaidSharp.Attributes;
+using System;
 
 namespace MermaidSharp.Extensions
 {

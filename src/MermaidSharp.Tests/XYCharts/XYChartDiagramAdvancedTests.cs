@@ -1,10 +1,10 @@
-using System;
-using System.Globalization;
 using MermaidSharp.Configs;
 using MermaidSharp.Configs.Themes.Children;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Globalization;
 
 namespace MermaidSharp.Tests.XYCharts
 {

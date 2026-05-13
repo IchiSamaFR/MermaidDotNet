@@ -1,9 +1,9 @@
-using System.Diagnostics;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Enums;
 using MermaidSharp.Models;
 using MermaidSharp.MVCWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace MermaidSharp.MVCWeb.Controllers
 {

@@ -1,5 +1,4 @@
-﻿using MermaidSharp.Configs;
-using MermaidSharp.Diagrams;
+﻿using MermaidSharp.Diagrams;
 using MermaidSharp.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

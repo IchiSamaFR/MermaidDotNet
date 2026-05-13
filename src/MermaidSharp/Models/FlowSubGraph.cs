@@ -1,8 +1,8 @@
+using MermaidSharp.Enums;
+using MermaidSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MermaidSharp.Enums;
-using MermaidSharp.Extensions;
 
 namespace MermaidSharp.Models
 {

@@ -1,6 +1,6 @@
-using System.Text;
 using MermaidSharp.Enums;
 using MermaidSharp.Extensions;
+using System.Text;
 
 namespace MermaidSharp.Models
 {

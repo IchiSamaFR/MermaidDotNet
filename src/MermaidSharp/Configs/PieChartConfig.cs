@@ -1,7 +1,7 @@
-using System;
 using MermaidSharp.Attributes;
 using MermaidSharp.Configs.Themes;
 using MermaidSharp.Enums;
+using System;
 
 namespace MermaidSharp.Configs
 {

@@ -1,7 +1,7 @@
-using System;
 using MermaidSharp.Attributes;
 using MermaidSharp.Configs.Themes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace MermaidSharp.Tests.XYCharts
 {

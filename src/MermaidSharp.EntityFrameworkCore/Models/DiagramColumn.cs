@@ -1,6 +1,6 @@
-using System;
 using MermaidSharp.EntityFrameworkCore.Contexts;
 using MermaidSharp.Enums;
+using System;
 
 namespace MermaidSharp.EntityFrameworkCore.Models
 {

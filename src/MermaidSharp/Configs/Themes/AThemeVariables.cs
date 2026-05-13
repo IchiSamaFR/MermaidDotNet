@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using MermaidSharp.Attributes;
 using MermaidSharp.Extensions;
+using System.Collections.Generic;
 
 namespace MermaidSharp.Configs.Themes
 {

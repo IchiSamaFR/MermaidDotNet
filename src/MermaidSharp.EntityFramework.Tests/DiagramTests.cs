@@ -1,8 +1,8 @@
-using System.Data.Common;
 using MermaidSharp.EntityFramework.Tests.Mock;
 using MermaidSharp.EntityFrameworkCore;
 using MermaidSharp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Data.Common;
 
 namespace MermaidSharp.EntityFramework.Tests
 {

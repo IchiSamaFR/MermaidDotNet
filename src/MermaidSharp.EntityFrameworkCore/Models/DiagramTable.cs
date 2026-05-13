@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using MermaidSharp.EntityFrameworkCore.Contexts;
+using System.Collections.Generic;
 
 namespace MermaidSharp.EntityFrameworkCore.Models
 {

@@ -1,9 +1,9 @@
-using System;
 using MermaidSharp.Configs;
 using MermaidSharp.Configs.Themes;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace MermaidSharp.Tests.PieCharts
 {

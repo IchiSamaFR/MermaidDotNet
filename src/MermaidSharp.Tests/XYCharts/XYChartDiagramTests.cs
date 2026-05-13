@@ -1,8 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MermaidSharp.Configs;
+﻿using MermaidSharp.Configs;
 using MermaidSharp.Diagrams;
-using MermaidSharp.Models;
 using MermaidSharp.Enums;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MermaidSharp.Tests.XYCharts
 {

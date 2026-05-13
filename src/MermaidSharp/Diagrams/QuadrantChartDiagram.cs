@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using MermaidSharp.Configs;
+﻿using MermaidSharp.Configs;
 using MermaidSharp.Extensions;
 using MermaidSharp.Models;
+using System;
+using System.Collections.Generic;
 
 namespace MermaidSharp.Diagrams
 {

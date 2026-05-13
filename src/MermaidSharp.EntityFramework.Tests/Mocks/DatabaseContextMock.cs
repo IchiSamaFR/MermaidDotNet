@@ -1,6 +1,6 @@
+using MermaidSharp.EntityFramework.Tests.Mock.Entities;
 using System.Data.Common;
 using System.Data.Entity;
-using MermaidSharp.EntityFramework.Tests.Mock.Entities;
 
 namespace MermaidSharp.EntityFramework.Tests.Mock
 {

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using MermaidSharp.Enums;
 using MermaidSharp.Extensions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MermaidSharp.Models
 {
