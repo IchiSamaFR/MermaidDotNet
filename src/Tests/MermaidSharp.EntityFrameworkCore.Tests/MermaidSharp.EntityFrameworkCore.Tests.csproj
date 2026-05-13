@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\MermaidSharp.EntityFrameworkCore\MermaidSharp.EntityFrameworkCore.csproj" />
+		<ProjectReference Include="..\..\MermaidSharp.EntityFrameworkCore\MermaidSharp.EntityFrameworkCore.csproj" />
 	</ItemGroup>
 
 </Project>

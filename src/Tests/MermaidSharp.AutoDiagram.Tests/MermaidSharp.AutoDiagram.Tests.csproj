@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\MermaidSharp.AutoDiagram\MermaidSharp.AutoDiagram.csproj" />
 		<ProjectReference Include="..\MermaidSharp.AutoDiagram.Tests.Models\MermaidSharp.AutoDiagram.Tests.Models.csproj" />
-		<ProjectReference Include="..\MermaidSharp.AutoDiagram\MermaidSharp.AutoDiagram.csproj" />
 	</ItemGroup>
 </Project>
