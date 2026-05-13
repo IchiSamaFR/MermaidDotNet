@@ -48,12 +48,15 @@ namespace MermaidSharp.AutoDiagram.Diagrams
                 .Select(a => BuildClassAssemblyContext(a, options))
                 .OrderBy(c => c.Name)
                 .ToList();
-            diagram.Namespaces
-                .AddRange(classNamespaces.Select(c => MapToClassNamespace(c, options)));
 
-            var nodesContext = classNamespaces
-                .SelectMany(cn => cn.ClassDiagrams);
-            diagram.Links.AddRange(BuildLinks(nodesContext, options));
+            var allContexts = classNamespaces.SelectMany(c => c.ClassDiagrams).ToList();
+            var nameMap = BuildDisambiguatedNames(allContexts);
+
+            diagram.Namespaces
+                .AddRange(classNamespaces.Select(c => MapToClassNamespace(c, options, nameMap)));
+
+            var nodesContext = classNamespaces.SelectMany(cn => cn.ClassDiagrams);
+            diagram.Links.AddRange(BuildLinks(nodesContext, options, nameMap));
 
             return diagram;
         }
@@ -90,8 +93,10 @@ namespace MermaidSharp.AutoDiagram.Diagrams
                 .Select(t => BuildClassNodeContext(t, options))
                 .ToList();
 
-            diagram.Nodes.AddRange(contexts.Select(c => MapToClassNode(c, options)));
-            diagram.Links.AddRange(BuildLinks(contexts, options));
+            var nameMap = BuildDisambiguatedNames(contexts);
+
+            diagram.Nodes.AddRange(contexts.Select(c => MapToClassNode(c, options, nameMap)));
+            diagram.Links.AddRange(BuildLinks(contexts, options, nameMap));
 
             return diagram;
         }
@@ -144,22 +149,18 @@ namespace MermaidSharp.AutoDiagram.Diagrams
         #endregion
 
         #region Diagram Models
-        private static ClassNamespace MapToClassNamespace(ClassAssemblyContext assemblyContext, ClassDiagramOptions options)
+        private static ClassNamespace MapToClassNamespace(ClassAssemblyContext assemblyContext, ClassDiagramOptions options, Dictionary<Type, string> nameMap)
         {
             var classNamespace = new ClassNamespace(assemblyContext.Name);
-            var filteredClasses = assemblyContext.ClassDiagrams;
-            classNamespace.Classes.AddRange(filteredClasses.Select(c => MapToClassNode(c, options)));
+            classNamespace.Classes.AddRange(assemblyContext.ClassDiagrams.Select(c => MapToClassNode(c, options, nameMap)));
             return classNamespace;
         }
 
-        private static ClassNode MapToClassNode(ClassNodeContext classNodeContext, ClassDiagramOptions options)
+        private static ClassNode MapToClassNode(ClassNodeContext classNodeContext, ClassDiagramOptions options, Dictionary<Type, string> nameMap)
         {
-            string name = classNodeContext.Type.FullName;
-            var properties = classNodeContext.Properties
-                .Select(MapToClassProperty).ToList();
-            var methods = classNodeContext.Methods
-                .Select(m => MapToClassMethod(m, options)).ToList();
-
+            string name = ResolveName(classNodeContext.Type.Type, classNodeContext.Type, nameMap);
+            var properties = classNodeContext.Properties.Select(MapToClassProperty).ToList();
+            var methods = classNodeContext.Methods.Select(m => MapToClassMethod(m, options)).ToList();
             return new ClassNode(name, string.Empty, string.Empty, properties, methods);
         }
 
@@ -187,28 +188,23 @@ namespace MermaidSharp.AutoDiagram.Diagrams
             return new ClassMethod(methodContext.Name, returnType, methodContext.Visibility, parameters);
         }
 
-        private static IEnumerable<ClassLink> BuildLinks(IEnumerable<ClassNodeContext> nodesContext, ClassDiagramOptions options)
+        private static IEnumerable<ClassLink> BuildLinks(IEnumerable<ClassNodeContext> nodesContext, ClassDiagramOptions options, Dictionary<Type, string> nameMap)
         {
             var dictionary = nodesContext.ToDictionary(c => GetTypeLookupKey(c.Type.Type), c => c);
-
             var links = new List<ClassLink>();
             foreach (var node in nodesContext)
             {
-                links.AddRange(BuildLinksAssociates(node, dictionary, options));
-                links.AddRange(BuildLinksHerited(node, dictionary, options));
-                links.AddRange(BuildLinksInterfaces(node, dictionary, options));
+                links.AddRange(BuildLinksAssociates(node, dictionary, options, nameMap));
+                links.AddRange(BuildLinksHerited(node, dictionary, options, nameMap));
+                links.AddRange(BuildLinksInterfaces(node, dictionary, options, nameMap));
             }
-            return links
-                .OrderBy(l => l.SourceNode)
-                .ThenBy(l => l.DestinationNode);
+            return links.OrderBy(l => l.SourceNode).ThenBy(l => l.DestinationNode);
         }
 
-        private static IEnumerable<ClassLink> BuildLinksAssociates(ClassNodeContext nodeContext, Dictionary<Type, ClassNodeContext> typeNames, ClassDiagramOptions options)
+        private static IEnumerable<ClassLink> BuildLinksAssociates(ClassNodeContext nodeContext, Dictionary<Type, ClassNodeContext> typeNames, ClassDiagramOptions options, Dictionary<Type, string> nameMap)
         {
             if (!options.LinkOptions.IncludeLinks.HasFlag(ClassLinkOption.Association))
-            {
                 return Array.Empty<ClassLink>();
-            }
 
             var links = new List<ClassLink>();
             string linkLabel = options.LinkOptions.IncludeLinksLabels ? ClassLinkOption.Association.ToString() : string.Empty;
@@ -217,17 +213,17 @@ namespace MermaidSharp.AutoDiagram.Diagrams
                 if (!typeNames.TryGetValue(GetTypeLookupKey(property.Type.Type), out var propertyNodeContext))
                     continue;
 
-                links.Add(new ClassLink(nodeContext.Type.Name, propertyNodeContext.Type.Name, ClassLinkType.Association, linkLabel));
+                var sourceName = ResolveName(nodeContext.Type.Type, nodeContext.Type, nameMap);
+                var destName = ResolveName(propertyNodeContext.Type.Type, propertyNodeContext.Type, nameMap);
+                links.Add(new ClassLink(sourceName, destName, ClassLinkType.Association, linkLabel));
             }
             return links;
         }
 
-        private static IEnumerable<ClassLink> BuildLinksHerited(ClassNodeContext nodeContext, Dictionary<Type, ClassNodeContext> typeNames, ClassDiagramOptions options)
+        private static IEnumerable<ClassLink> BuildLinksHerited(ClassNodeContext nodeContext, Dictionary<Type, ClassNodeContext> typeNames, ClassDiagramOptions options, Dictionary<Type, string> nameMap)
         {
             if (!options.LinkOptions.IncludeLinks.HasFlag(ClassLinkOption.Inherited))
-            {
                 return Array.Empty<ClassLink>();
-            }
 
             var links = new List<ClassLink>();
             var baseType = nodeContext.Type.Type.BaseType;
@@ -236,17 +232,17 @@ namespace MermaidSharp.AutoDiagram.Diagrams
                 && baseType != typeof(object)
                 && typeNames.TryGetValue(GetTypeLookupKey(baseType), out var baseNodeContext))
             {
-                links.Add(new ClassLink(baseNodeContext.Type.Name, nodeContext.Type.Name, ClassLinkType.Inheritance, linkLabel));
+                var sourceName = ResolveName(baseNodeContext.Type.Type, baseNodeContext.Type, nameMap);
+                var destName = ResolveName(nodeContext.Type.Type, nodeContext.Type, nameMap);
+                links.Add(new ClassLink(sourceName, destName, ClassLinkType.Inheritance, linkLabel));
             }
             return links;
         }
 
-        private static IEnumerable<ClassLink> BuildLinksInterfaces(ClassNodeContext nodeContext, Dictionary<Type, ClassNodeContext> typeNames, ClassDiagramOptions options)
+        private static IEnumerable<ClassLink> BuildLinksInterfaces(ClassNodeContext nodeContext, Dictionary<Type, ClassNodeContext> typeNames, ClassDiagramOptions options, Dictionary<Type, string> nameMap)
         {
             if (!options.LinkOptions.IncludeLinks.HasFlag(ClassLinkOption.Interface))
-            {
                 return Array.Empty<ClassLink>();
-            }
 
             var links = new List<ClassLink>();
             string linkLabel = options.LinkOptions.IncludeLinksLabels ? ClassLinkOption.Interface.ToString() : string.Empty;
@@ -254,7 +250,9 @@ namespace MermaidSharp.AutoDiagram.Diagrams
             {
                 if (typeNames.TryGetValue(GetTypeLookupKey(iface), out var interfaceNodeContext))
                 {
-                    links.Add(new ClassLink(interfaceNodeContext.Type.Name, nodeContext.Type.Name, ClassLinkType.Realization, linkLabel));
+                    var sourceName = ResolveName(interfaceNodeContext.Type.Type, interfaceNodeContext.Type, nameMap);
+                    var destName = ResolveName(nodeContext.Type.Type, nodeContext.Type, nameMap);
+                    links.Add(new ClassLink(sourceName, destName, ClassLinkType.Realization, linkLabel));
                 }
             }
             return links;
@@ -265,6 +263,55 @@ namespace MermaidSharp.AutoDiagram.Diagrams
             return type.IsGenericType
                 ? type.GetGenericTypeDefinition()
                 : type;
+        }
+        #endregion
+
+        #region Disambiguation
+        private static Dictionary<Type, string> BuildDisambiguatedNames(IEnumerable<ClassNodeContext> contexts)
+        {
+            var result = new Dictionary<Type, string>();
+            var groups = contexts.GroupBy(c => c.Type.Name).ToList();
+
+            foreach (var group in groups)
+            {
+                var items = group.ToList();
+                if (items.Count == 1)
+                {
+                    result[items[0].Type.Type] = items[0].Type.FullName;
+                    continue;
+                }
+
+                // Find the minimal number of namespace segments to disambiguate all types in the group
+                int segments = 1;
+                while (segments <= 20)
+                {
+                    var names = items.Select(i => BuildPrefixedName(i.Type, segments)).ToList();
+                    if (names.Distinct().Count() == items.Count)
+                        break;
+                    segments++;
+                }
+
+                foreach (var item in items)
+                    result[item.Type.Type] = BuildPrefixedName(item.Type, segments);
+            }
+
+            return result;
+        }
+
+        private static string BuildPrefixedName(ClassTypeContext typeContext, int namespaceSegments)
+        {
+            if (typeContext.Type.Namespace == null || namespaceSegments == 0)
+                return typeContext.FullName;
+
+            var parts = typeContext.Type.Namespace.Split('.');
+            var prefix = string.Join(".", parts.Skip(Math.Max(0, parts.Length - namespaceSegments)));
+            return prefix + "." + typeContext.FullName;
+        }
+
+        private static string ResolveName(Type type, ClassTypeContext typeContext, Dictionary<Type, string> nameMap)
+        {
+            var lookupKey = GetTypeLookupKey(type);
+            return nameMap.TryGetValue(lookupKey, out var name) ? name : typeContext.FullName;
         }
         #endregion
 
