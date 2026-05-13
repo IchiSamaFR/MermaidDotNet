@@ -4,11 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using MermaidSharp.AutoDiagram.Tests.Models;
+using MermaidSharp.AutoDiagram.Core.Tests.Models;
 using MermaidSharp.Diagrams;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MermaidSharp.AutoDiagram.Tests.Flowchars
+namespace MermaidSharp.AutoDiagram.Core.Tests.Flowchars
 {
 	[TestClass]
 	public class FlowchartExtensionTests
@@ -19,6 +19,19 @@ namespace MermaidSharp.AutoDiagram.Tests.Flowchars
 			// Arrange
 			var assembliesName = new[] { "MermaidSharp", "MermaidSharp.AutoDiagram" };
 			var assemblies = assembliesName.Select(Assembly.Load);
+
+#if NET48
+			var expected = @"flowchart LR
+    subgraph Project
+    MermaidSharp[MermaidSharp]
+    MermaidSharp.AutoDiagram[MermaidSharp.AutoDiagram]
+    end
+    MermaidSharp-->mscorlib
+    MermaidSharp-->System.Core
+    MermaidSharp.AutoDiagram-->mscorlib
+    MermaidSharp.AutoDiagram-->MermaidSharp
+    MermaidSharp.AutoDiagram-->System.Core";
+#else
 			var expected = @"flowchart LR
     subgraph Project
     MermaidSharp[MermaidSharp]
@@ -33,8 +46,10 @@ namespace MermaidSharp.AutoDiagram.Tests.Flowchars
     MermaidSharp.AutoDiagram-->System.Collections
     MermaidSharp.AutoDiagram-->System.Linq";
 
-			// Act
-			var diagram = assemblies.ToMermaidFlowchartDiagram();
+#endif
+
+            // Act
+            var diagram = assemblies.ToMermaidFlowchartDiagram();
 			var result = diagram.CalculateDiagram();
 
 			// Assert
