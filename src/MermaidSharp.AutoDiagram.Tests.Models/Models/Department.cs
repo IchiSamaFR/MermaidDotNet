@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MermaidSharp.AutoDiagram.Core.Tests.Models
+namespace MermaidSharp.AutoDiagram.Tests.Models
 {
     public class Department<T>
     {

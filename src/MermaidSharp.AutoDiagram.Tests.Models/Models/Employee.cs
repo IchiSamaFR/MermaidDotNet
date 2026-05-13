@@ -1,4 +1,4 @@
-namespace MermaidSharp.AutoDiagram.Core.Tests.Models
+namespace MermaidSharp.AutoDiagram.Tests.Models
 {
     public class Employee : Person, IContactable
     {

@@ -1,4 +1,4 @@
-﻿using MermaidSharp.AutoDiagram.Core.Tests.Models;
+﻿using MermaidSharp.AutoDiagram.Tests.Models;
 using MermaidSharp.AutoDiagram.Enums;
 using MermaidSharp.AutoDiagram.Options;
 using MermaidSharp.Diagrams;

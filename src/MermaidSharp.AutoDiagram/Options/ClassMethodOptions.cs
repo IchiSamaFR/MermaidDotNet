@@ -14,7 +14,7 @@ namespace MermaidSharp.AutoDiagram.Options
     public class ClassMethodOptions
     {
         /// <summary>
-        /// Gets or sets the visibility level of class properties to include.
+        /// Gets or sets the visibility level of class methods to include.
         /// </summary>
         public ClassPropertyVisibility IncludeVisibility { get; set; } = ClassPropertyVisibilityExtensions.All;
 

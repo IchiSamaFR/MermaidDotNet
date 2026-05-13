@@ -4,11 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using MermaidSharp.AutoDiagram.Core.Tests.Models;
+using MermaidSharp.AutoDiagram.Tests.Models;
 using MermaidSharp.Diagrams;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MermaidSharp.AutoDiagram.Core.Tests.Flowchars
+namespace MermaidSharp.AutoDiagram.Tests.Flowcharts
 {
 	[TestClass]
 	public class FlowchartExtensionTests
