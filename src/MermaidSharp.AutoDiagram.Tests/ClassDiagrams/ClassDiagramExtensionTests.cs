@@ -6,6 +6,7 @@ using MermaidSharp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
 {
@@ -95,10 +96,10 @@ namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
             StringAssert.Contains(result, "class Person {");
             StringAssert.Contains(result, "Employee<|--Manager : Inherited");
             StringAssert.Contains(result, "Person<|--Employee : Inherited");
-            Assert.DoesNotContain(result, "class Department");
-            Assert.DoesNotContain(result, "class IContactable");
-            Assert.DoesNotContain(result, "Association");
-            Assert.DoesNotContain(result, "Interface");
+            StringAssert.DoesNotMatch(result, new Regex("class Department"));
+            StringAssert.DoesNotMatch(result, new Regex("class IContactable"));
+            StringAssert.DoesNotMatch(result, new Regex("Association"));
+            StringAssert.DoesNotMatch(result, new Regex("Interface"));
         }
 
         [TestMethod]
