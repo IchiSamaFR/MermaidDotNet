@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MermaidSharp.AutoDiagram.Options
+﻿namespace MermaidSharp.AutoDiagram.Options
 {
 	/// <summary>
 	/// Represents configuration options for generating a Mermaid flowchart diagram from a collection of assemblies.

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MermaidSharp.AutoDiagram.Diagrams;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using MermaidSharp.AutoDiagram.Diagrams;
-using MermaidSharp.AutoDiagram.Tests.Models;
-using MermaidSharp.Diagrams;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MermaidSharp.AutoDiagram.Tests.Flowcharts
 {

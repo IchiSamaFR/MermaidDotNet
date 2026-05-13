@@ -1,6 +1,3 @@
-using MermaidSharp.AutoDiagram.Enums;
-using MermaidSharp.AutoDiagram.Extensions;
-using MermaidSharp.AutoDiagram.Models.ClassDiagrams;
 using MermaidSharp.AutoDiagram.Options;
 using MermaidSharp.Enums;
 using System;

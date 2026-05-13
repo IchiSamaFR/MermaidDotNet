@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using MermaidSharp.AutoDiagram.Options;
+﻿using MermaidSharp.AutoDiagram.Options;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace MermaidSharp.AutoDiagram.Diagrams
 {

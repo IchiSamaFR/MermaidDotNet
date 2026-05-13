@@ -1,12 +1,11 @@
-﻿using MermaidSharp.AutoDiagram.Enums;
+﻿using MermaidSharp.AutoDiagram.Diagrams;
+using MermaidSharp.AutoDiagram.Enums;
 using MermaidSharp.AutoDiagram.Options;
-using MermaidSharp.Diagrams;
+using MermaidSharp.AutoDiagram.Tests.Models;
 using MermaidSharp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using MermaidSharp.AutoDiagram.Tests.Models;
-using MermaidSharp.AutoDiagram.Diagrams;
 
 namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
 {
