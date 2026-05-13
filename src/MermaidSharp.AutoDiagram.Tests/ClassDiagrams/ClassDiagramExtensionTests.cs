@@ -128,7 +128,7 @@ namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
             Assert.IsNotNull(result);
             StringAssert.Contains(result, "namespace MermaidSharp.AutoDiagram.Tests {");
             StringAssert.Contains(result, "class SharedName {");
-            StringAssert.Contains(result, "class SharedName");
+            Assert.AreEqual(2, result.Split(new[] { "class SharedName" }, StringSplitOptions.None).Length - 1);
             StringAssert.Contains(result, "SharedName-->SharedName : Association");
         }
 
