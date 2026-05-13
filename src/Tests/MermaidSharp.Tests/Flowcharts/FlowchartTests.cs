@@ -6,154 +6,154 @@ using System.Collections.Generic;
 
 namespace MermaidSharp.Tests.Flowcharts
 {
-	[TestClass]
-	public class FlowchartTests
-	{
-		[TestMethod]
-		public void ValidTDFlowchart()
-		{
-			//Arrange
-			FlowchartDiagram flowchart = new FlowchartDiagram("TD");
+    [TestClass]
+    public class FlowchartTests
+    {
+        [TestMethod]
+        public void ValidTDFlowchart()
+        {
+            //Arrange
+            FlowchartDiagram flowchart = new FlowchartDiagram("TD");
 
-			//Act
+            //Act
 
-			//Assert
-			Assert.IsNotNull(flowchart);
-		}
+            //Assert
+            Assert.IsNotNull(flowchart);
+        }
 
-		[TestMethod]
-		public void ValidLRFlowchart()
-		{
-			//Arrange
-			FlowchartDiagram flowchart = new FlowchartDiagram("LR");
+        [TestMethod]
+        public void ValidLRFlowchart()
+        {
+            //Arrange
+            FlowchartDiagram flowchart = new FlowchartDiagram("LR");
 
-			//Act
+            //Act
 
-			//Assert
-			Assert.IsNotNull(flowchart);
-		}
+            //Assert
+            Assert.IsNotNull(flowchart);
+        }
 
-		[TestMethod]
-		public void ValidBTFlowchart()
-		{
-			//Arrange
-			FlowchartDiagram flowchart = new FlowchartDiagram("BT");
+        [TestMethod]
+        public void ValidBTFlowchart()
+        {
+            //Arrange
+            FlowchartDiagram flowchart = new FlowchartDiagram("BT");
 
-			//Act
+            //Act
 
-			//Assert
-			Assert.IsNotNull(flowchart);
-		}
+            //Assert
+            Assert.IsNotNull(flowchart);
+        }
 
-		[TestMethod]
-		public void ValidRLFlowchart()
-		{
-			//Arrange
-			FlowchartDiagram flowchart = new FlowchartDiagram("RL");
+        [TestMethod]
+        public void ValidRLFlowchart()
+        {
+            //Arrange
+            FlowchartDiagram flowchart = new FlowchartDiagram("RL");
 
-			//Act
+            //Act
 
-			//Assert
-			Assert.IsNotNull(flowchart);
-		}
+            //Assert
+            Assert.IsNotNull(flowchart);
+        }
 
-		[TestMethod]
-		public void ValidTBFlowchart()
-		{
-			//Arrange
-			FlowchartDiagram flowchart = new FlowchartDiagram("TB");
+        [TestMethod]
+        public void ValidTBFlowchart()
+        {
+            //Arrange
+            FlowchartDiagram flowchart = new FlowchartDiagram("TB");
 
-			//Act
+            //Act
 
-			//Assert
-			Assert.IsNotNull(flowchart);
-		}
+            //Assert
+            Assert.IsNotNull(flowchart);
+        }
 
-		[TestMethod]
-		public void InvalidNoDirectionFlowchart()
-		{
-			//Arrange
-			try
-			{
-				FlowchartDiagram flowchart = new FlowchartDiagram("none");
+        [TestMethod]
+        public void InvalidNoDirectionFlowchart()
+        {
+            //Arrange
+            try
+            {
+                FlowchartDiagram flowchart = new FlowchartDiagram("none");
 
-				//Act
+                //Act
 
-				//Assert
-				Assert.IsNotNull(flowchart);
-			}
-			catch (Exception ex)
-			{
-				Assert.AreEqual("Direction none is currently unsupported", ex.Message);
-			}
-		}
+                //Assert
+                Assert.IsNotNull(flowchart);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Direction none is currently unsupported", ex.Message);
+            }
+        }
 
 
 
-		[TestMethod]
-		public void NodesAddedIncorrectlyFlowchart()
-		{
-			//Arrange
-			try
-			{
-				FlowchartDiagram flowchart = new FlowchartDiagram("LR");
-				flowchart.Nodes.Add(new FlowNode("node1", "node1"));
+        [TestMethod]
+        public void NodesAddedIncorrectlyFlowchart()
+        {
+            //Arrange
+            try
+            {
+                FlowchartDiagram flowchart = new FlowchartDiagram("LR");
+                flowchart.Nodes.Add(new FlowNode("node1", "node1"));
 
-				//Act
+                //Act
 
-				//Assert
-				Assert.IsNotNull(flowchart);
-			}
-			catch (Exception ex)
-			{
-				Assert.AreEqual("The NavigationNodes collection is empty, but Nodes collection is not empty. This is likely an issue because Nodes were added manually instead of as a collection in the FlowChart constructor", ex.Message);
-			}
-		}
+                //Assert
+                Assert.IsNotNull(flowchart);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("The NavigationNodes collection is empty, but Nodes collection is not empty. This is likely an issue because Nodes were added manually instead of as a collection in the FlowChart constructor", ex.Message);
+            }
+        }
 
-		[TestMethod]
-		public void SourceNodeDoesNotExistInNodesFlowchart()
-		{
-			//Arrange
-			try
-			{
-				List<FlowNode> nodes = new List<FlowNode> { new FlowNode("node2", "node2") };
-				FlowchartDiagram flowchart = new FlowchartDiagram("LR");
-				flowchart.Nodes.AddRange(nodes);
-				flowchart.Links.Add(new FlowLink("node1", "node2", "1"));
+        [TestMethod]
+        public void SourceNodeDoesNotExistInNodesFlowchart()
+        {
+            //Arrange
+            try
+            {
+                List<FlowNode> nodes = new List<FlowNode> { new FlowNode("node2", "node2") };
+                FlowchartDiagram flowchart = new FlowchartDiagram("LR");
+                flowchart.Nodes.AddRange(nodes);
+                flowchart.Links.Add(new FlowLink("node1", "node2", "1"));
 
-				//Act
-				flowchart.CalculateDiagram();
+                //Act
+                flowchart.CalculateDiagram();
 
-				//Assert
-				Assert.IsNotNull(flowchart);
-			}
-			catch (Exception ex)
-			{
-				Assert.AreEqual("Source node (node1) in link connection (node1-->node2) not found", ex.Message);
-			}
-		}
+                //Assert
+                Assert.IsNotNull(flowchart);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Source node (node1) in link connection (node1-->node2) not found", ex.Message);
+            }
+        }
 
-		[TestMethod]
-		public void DestinationNodeDoesNotExistInNodesFlowchart()
-		{
-			//Arrange
-			try
-			{
-				List<FlowNode> nodes = new List<FlowNode> { new FlowNode("node1", "node1") };
-				FlowchartDiagram flowchart = new FlowchartDiagram("LR");
-				flowchart.Nodes.AddRange(nodes);
-				flowchart.Links.Add(new FlowLink("node1", "node2", "1"));
+        [TestMethod]
+        public void DestinationNodeDoesNotExistInNodesFlowchart()
+        {
+            //Arrange
+            try
+            {
+                List<FlowNode> nodes = new List<FlowNode> { new FlowNode("node1", "node1") };
+                FlowchartDiagram flowchart = new FlowchartDiagram("LR");
+                flowchart.Nodes.AddRange(nodes);
+                flowchart.Links.Add(new FlowLink("node1", "node2", "1"));
 
-				//Act
-				flowchart.CalculateDiagram();
+                //Act
+                flowchart.CalculateDiagram();
 
-				//Assert
-				Assert.IsNotNull(flowchart);
-			}
-			catch (Exception ex)
-			{
-				Assert.AreEqual("Destination node (node2) in link connection (node1-->node2) not found", ex.Message);
-			}
-		}
-	}
+                //Assert
+                Assert.IsNotNull(flowchart);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual("Destination node (node2) in link connection (node1-->node2) not found", ex.Message);
+            }
+        }
+    }
 }

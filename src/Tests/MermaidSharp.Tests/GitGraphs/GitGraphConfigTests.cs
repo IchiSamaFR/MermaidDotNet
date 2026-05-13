@@ -4,156 +4,156 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MermaidSharp.Tests.GitGraphs
 {
-	[TestClass]
-	public class GitGraphConfigTests
-	{
-		#region Theme Only
+    [TestClass]
+    public class GitGraphConfigTests
+    {
+        #region Theme Only
 
-		[TestMethod]
-		public void GitGraphConfig_ThemeDark()
-		{
-			//Arrange
-			var config = new GitGraphConfig(ConfigTheme.Dark);
+        [TestMethod]
+        public void GitGraphConfig_ThemeDark()
+        {
+            //Arrange
+            var config = new GitGraphConfig(ConfigTheme.Dark);
 
-			string expected = @"---
+            string expected = @"---
 config:
     theme: dark
 ---";
 
-			//Act
-			string result = config.ToString();
+            //Act
+            string result = config.ToString();
 
-			//Assert
-			Assert.IsNotNull(config);
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            //Assert
+            Assert.IsNotNull(config);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GitGraphConfig_ThemeForest()
-		{
-			//Arrange
-			var config = new GitGraphConfig(ConfigTheme.Forest);
+        [TestMethod]
+        public void GitGraphConfig_ThemeForest()
+        {
+            //Arrange
+            var config = new GitGraphConfig(ConfigTheme.Forest);
 
-			string expected = @"---
+            string expected = @"---
 config:
     theme: forest
 ---";
 
-			//Act
-			string result = config.ToString();
+            //Act
+            string result = config.ToString();
 
-			//Assert
-			Assert.IsNotNull(config);
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            //Assert
+            Assert.IsNotNull(config);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		#endregion
+        #endregion
 
-		#region GitGraph Config Only
+        #region GitGraph Config Only
 
-		[TestMethod]
-		public void GitGraphConfig_ShowCommitLabelTrue()
-		{
-			//Arrange
-			var config = new GitGraphConfig { ShowCommitLabel = true };
+        [TestMethod]
+        public void GitGraphConfig_ShowCommitLabelTrue()
+        {
+            //Arrange
+            var config = new GitGraphConfig { ShowCommitLabel = true };
 
-			string expected = @"---
+            string expected = @"---
 config:
     gitGraph:
         showCommitLabel: true
 ---";
 
-			//Act
-			string result = config.ToString();
+            //Act
+            string result = config.ToString();
 
-			//Assert
-			Assert.IsNotNull(config);
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            //Assert
+            Assert.IsNotNull(config);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GitGraphConfig_ShowBranchesFalse()
-		{
-			//Arrange
-			var config = new GitGraphConfig { ShowBranches = false };
+        [TestMethod]
+        public void GitGraphConfig_ShowBranchesFalse()
+        {
+            //Arrange
+            var config = new GitGraphConfig { ShowBranches = false };
 
-			string expected = @"---
+            string expected = @"---
 config:
     gitGraph:
         showBranches: false
 ---";
 
-			//Act
-			string result = config.ToString();
+            //Act
+            string result = config.ToString();
 
-			//Assert
-			Assert.IsNotNull(config);
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            //Assert
+            Assert.IsNotNull(config);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GitGraphConfig_RotateCommitLabelTrue()
-		{
-			//Arrange
-			var config = new GitGraphConfig { RotateCommitLabel = true };
+        [TestMethod]
+        public void GitGraphConfig_RotateCommitLabelTrue()
+        {
+            //Arrange
+            var config = new GitGraphConfig { RotateCommitLabel = true };
 
-			string expected = @"---
+            string expected = @"---
 config:
     gitGraph:
         rotateCommitLabel: true
 ---";
 
-			//Act
-			string result = config.ToString();
+            //Act
+            string result = config.ToString();
 
-			//Assert
-			Assert.IsNotNull(config);
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            //Assert
+            Assert.IsNotNull(config);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GitGraphConfig_MainBranchName()
-		{
-			//Arrange
-			var config = new GitGraphConfig { MainBranchName = "master" };
+        [TestMethod]
+        public void GitGraphConfig_MainBranchName()
+        {
+            //Arrange
+            var config = new GitGraphConfig { MainBranchName = "master" };
 
-			string expected = @"---
+            string expected = @"---
 config:
     gitGraph:
         mainBranchName: ""master""
 ---";
 
-			//Act
-			string result = config.ToString();
+            //Act
+            string result = config.ToString();
 
-			//Assert
-			Assert.IsNotNull(config);
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            //Assert
+            Assert.IsNotNull(config);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		#endregion
+        #endregion
 
-		#region Combined Config
+        #region Combined Config
 
-		[TestMethod]
-		public void GitGraphConfig_AllGitGraphParams()
-		{
-			//Arrange
-			var config = new GitGraphConfig
-			{
-				ShowCommitLabel = false,
-				ShowBranches = true,
-				RotateCommitLabel = true,
-				MainBranchName = "master"
-			};
+        [TestMethod]
+        public void GitGraphConfig_AllGitGraphParams()
+        {
+            //Arrange
+            var config = new GitGraphConfig
+            {
+                ShowCommitLabel = false,
+                ShowBranches = true,
+                RotateCommitLabel = true,
+                MainBranchName = "master"
+            };
 
-			string expected = @"---
+            string expected = @"---
 config:
     gitGraph:
         showCommitLabel: false
@@ -162,26 +162,26 @@ config:
         mainBranchName: ""master""
 ---";
 
-			//Act
-			string result = config.ToString();
+            //Act
+            string result = config.ToString();
 
-			//Assert
-			Assert.IsNotNull(config);
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            //Assert
+            Assert.IsNotNull(config);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GitGraphConfig_ThemeAndGitGraphParams()
-		{
-			//Arrange
-			var config = new GitGraphConfig(ConfigTheme.Forest)
-			{
-				ShowCommitLabel = true,
-				MainBranchName = "master"
-			};
+        [TestMethod]
+        public void GitGraphConfig_ThemeAndGitGraphParams()
+        {
+            //Arrange
+            var config = new GitGraphConfig(ConfigTheme.Forest)
+            {
+                ShowCommitLabel = true,
+                MainBranchName = "master"
+            };
 
-			string expected = @"---
+            string expected = @"---
 config:
     theme: forest
     gitGraph:
@@ -189,15 +189,15 @@ config:
         mainBranchName: ""master""
 ---";
 
-			//Act
-			string result = config.ToString();
+            //Act
+            string result = config.ToString();
 
-			//Assert
-			Assert.IsNotNull(config);
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            //Assert
+            Assert.IsNotNull(config);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

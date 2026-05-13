@@ -67,22 +67,22 @@ namespace MermaidSharp.AutoDiagram.Tests.ClassDiagrams
             StringAssert.Contains(result, "Manager-->Department~T~ : Association");
             StringAssert.Contains(result, "Person<|--Employee : Inherited");
         }
-        
-        
+
+
         [TestMethod]
         public void ToMermaidClassDiagram_Assembly_GeneratesDiagramForFilteredTypes()
         {
             // Arrange
             var assembly = typeof(Employee).Assembly;
             var whiteList = new List<Type> { typeof(Employee), typeof(Manager), typeof(Person) };
-			var options = new ClassDiagramOptions()
-			{
-				LinkOptions = new ClassLinkOptions()
-				{
-					IncludeLinks = ClassLinkOption.All
+            var options = new ClassDiagramOptions()
+            {
+                LinkOptions = new ClassLinkOptions()
+                {
+                    IncludeLinks = ClassLinkOption.All
                 },
                 AssemblyClassFilter = (type) => whiteList.Contains(type)
-			};
+            };
 
             // Act
             var diagram = assembly.ToMermaidClassDiagram(options);

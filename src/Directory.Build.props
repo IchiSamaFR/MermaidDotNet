@@ -1,17 +1,17 @@
 <Project>
-	<PropertyGroup>
-		<Version>1.4.0</Version>
-		<Authors>IchiSamaFR</Authors>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/ichisamafr/MermaidSharp</PackageProjectUrl>
-		<PackageTags>mermaid;dotnet;.NET;c#</PackageTags>
-		<IncludeSymbols>false</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageOutputPath>$(SolutionDir)nuget</PackageOutputPath>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Version>1.4.0</Version>
+        <Authors>IchiSamaFR</Authors>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/ichisamafr/MermaidSharp</PackageProjectUrl>
+        <PackageTags>mermaid;dotnet;.NET;c#</PackageTags>
+        <IncludeSymbols>false</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageOutputPath>$(SolutionDir)nuget</PackageOutputPath>
+    </PropertyGroup>
 </Project>

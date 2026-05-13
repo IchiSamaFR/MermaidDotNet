@@ -20,16 +20,16 @@ namespace MermaidSharp.Tests.XYCharts
             };
             var diagram = new XYChartDiagram("Comprehensive XY Chart", "Quarter", "Value", config);
             diagram.XAxis.Labels.AddRange(new[] { "Q1", "Q2", "Q3", "Q4" });
-			var series1 = diagram.AddSeries(XYSeriesType.Bar)
-				.AddPoints(5, 15, 25, 20);
-			var series2 = diagram.AddSeries(XYSeriesType.Line)
+            var series1 = diagram.AddSeries(XYSeriesType.Bar)
+                .AddPoints(5, 15, 25, 20);
+            var series2 = diagram.AddSeries(XYSeriesType.Line)
                 .AddPoints(10, 12, 23, 14);
             var series3 = diagram.AddSeries(XYSeriesType.Line)
-				.AddPoints(8, 18, 28, 23);
+                .AddPoints(8, 18, 28, 23);
             var series4 = diagram.AddSeries(XYSeriesType.Line)
-				.AddPoints(12, 22, 32, 30);
+                .AddPoints(12, 22, 32, 30);
 
-			var expected =
+            var expected =
 @"---
 title: Comprehensive XY Chart
 config:
@@ -52,6 +52,6 @@ xychart
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(expected, result);
-		}
+        }
     }
 }

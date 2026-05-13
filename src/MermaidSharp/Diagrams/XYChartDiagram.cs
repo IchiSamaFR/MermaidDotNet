@@ -46,24 +46,24 @@ namespace MermaidSharp.Diagrams
         public XYChartDiagram(string title = "", string titleXAxis = null, string titleYAxis = null, XYChartConfig config = null) : base(title, config)
         {
             if (string.IsNullOrWhiteSpace(titleXAxis))
-				titleXAxis = "xAxis";
+                titleXAxis = "xAxis";
 
             if (string.IsNullOrWhiteSpace(titleYAxis))
-				titleYAxis = "yAxis";
+                titleYAxis = "yAxis";
 
             XAxis = new ChartXAxis(titleXAxis);
             YAxis = new ChartYAxis(titleYAxis);
         }
 
-		/// <summary>
-		/// Adds a series to the XY chart.
-		/// </summary>
-		/// <param name="seriesType">The type of the series to add.</param>
-		/// <returns>The newly added XYSeries instance.</returns>
-		public XYSeries AddSeries(XYSeriesType seriesType)
+        /// <summary>
+        /// Adds a series to the XY chart.
+        /// </summary>
+        /// <param name="seriesType">The type of the series to add.</param>
+        /// <returns>The newly added XYSeries instance.</returns>
+        public XYSeries AddSeries(XYSeriesType seriesType)
         {
             var series = new XYSeries(seriesType);
-			series.SetXAxis(XAxis);
+            series.SetXAxis(XAxis);
             Series.Add(series);
             return series;
         }

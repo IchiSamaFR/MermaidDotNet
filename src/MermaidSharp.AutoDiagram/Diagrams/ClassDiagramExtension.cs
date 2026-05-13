@@ -1,4 +1,4 @@
-using MermaidSharp.AutoDiagram.Constants;
+﻿using MermaidSharp.AutoDiagram.Constants;
 using MermaidSharp.AutoDiagram.Enums;
 using MermaidSharp.AutoDiagram.Models.ClassDiagrams;
 using MermaidSharp.Diagrams;

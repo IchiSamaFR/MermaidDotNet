@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MermaidSharp.EntityFrameworkCore.Tests.Mock
 {
-	internal class DatabaseIdentityContextMock : IdentityDbContext<User, IdentityRole<int>, int>
-	{
-		public DatabaseIdentityContextMock(DbContextOptions<DatabaseIdentityContextMock> options) : base(options)
-		{
-		}
+    internal class DatabaseIdentityContextMock : IdentityDbContext<User, IdentityRole<int>, int>
+    {
+        public DatabaseIdentityContextMock(DbContextOptions<DatabaseIdentityContextMock> options) : base(options)
+        {
+        }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			base.OnModelCreating(modelBuilder);
-		}
-	}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+    }
 }

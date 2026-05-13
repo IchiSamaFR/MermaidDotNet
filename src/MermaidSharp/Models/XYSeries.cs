@@ -24,20 +24,20 @@ namespace MermaidSharp.Models
         /// </summary>
         public List<double> Points { get; } = new List<double>();
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="XYSeries"/> class.
-		/// </summary>
-		/// <param name="type">The type of the series.</param>
-		/// <param name="points">An optional collection of points to initialize the series with.</param>
-		public XYSeries(XYSeriesType type, IEnumerable<double> points = null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XYSeries"/> class.
+        /// </summary>
+        /// <param name="type">The type of the series.</param>
+        /// <param name="points">An optional collection of points to initialize the series with.</param>
+        public XYSeries(XYSeriesType type, IEnumerable<double> points = null)
         {
             Type = type;
 
             if (points == null)
-				points = new List<double>();
+                points = new List<double>();
 
-			Points.AddRange(points);
-		}
+            Points.AddRange(points);
+        }
 
         /// <summary>
         /// Sets the collection of labels for the series.
@@ -67,21 +67,21 @@ namespace MermaidSharp.Models
         /// <param name="points">Points to add to the series.</param>
         /// <returns>The current instance for method chaining.</returns>
         public XYSeries AddPoints(params double[] points)
-		{
-			Points.AddRange(points);
-			return this;
-		}
+        {
+            Points.AddRange(points);
+            return this;
+        }
 
-		/// <summary>
-		/// Sets the value of the point at the specified index, expanding the collection with zeros if necessary.
-		/// </summary>
-		/// <remarks>If the specified index is greater than the current number of points, the collection
-		/// is automatically expanded and new points are initialized to zero.</remarks>
+        /// <summary>
+        /// Sets the value of the point at the specified index, expanding the collection with zeros if necessary.
+        /// </summary>
+        /// <remarks>If the specified index is greater than the current number of points, the collection
+        /// is automatically expanded and new points are initialized to zero.</remarks>
         /// <param name="index">The zero-based index of the point to set. Must be non-negative.</param>
         /// <param name="value">The value to assign to the point at the specified index.</param>
         /// <returns>The current instance for method chaining.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when index is less than zero.</exception>
-		public XYSeries SetPoint(int index, double value)
+        public XYSeries SetPoint(int index, double value)
         {
             if (index < 0)
                 throw new ArgumentOutOfRangeException(nameof(index), "Index must be non-negative.");

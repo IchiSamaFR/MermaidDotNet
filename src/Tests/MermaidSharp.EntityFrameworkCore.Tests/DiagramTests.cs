@@ -4,21 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MermaidSharp.EntityFrameworkCore.Tests
 {
-	[TestClass]
-	public class DiagramTests
-	{
-		[TestMethod]
-		public void GenerateIdentityDiagram()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseIdentityContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+    [TestClass]
+    public class DiagramTests
+    {
+        [TestMethod]
+        public void GenerateIdentityDiagram()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseIdentityContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseIdentityContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var expected = @"erDiagram
+            using var context = new DatabaseIdentityContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var expected = @"erDiagram
     IdentityRole {
         Int32 Id PK
         String ConcurrencyStamp
@@ -86,27 +86,27 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
     IdentityUserToken }|--|| User : ""UserId (Cascade)""
     User }|--|| UserAuditInfo : ""AuditId (Cascade)""";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram();
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram();
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GenerateDiagram()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+        [TestMethod]
+        public void GenerateDiagram()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var expected = @"erDiagram
+            using var context = new DatabaseContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var expected = @"erDiagram
     Assignment {
         Int32 Id PK ""The unique identifier for the assignment.""
         Int32 CourseId FK
@@ -166,31 +166,31 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
     Submission }|--|| Assignment : ""AssignmentId (Cascade)""
     Submission }|--|| Student : ""StudentId (Restrict)""";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram();
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram();
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GenerateDiagram_NoColumnTypes()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+        [TestMethod]
+        public void GenerateDiagram_NoColumnTypes()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var diagramOptions = new EntityRelationshipDiagramOptions
-			{
-				IncludeColumns = false
-			};
-			var expected = @"erDiagram
+            using var context = new DatabaseContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var diagramOptions = new EntityRelationshipDiagramOptions
+            {
+                IncludeColumns = false
+            };
+            var expected = @"erDiagram
     Assignment
     Course
     Enrollment
@@ -207,31 +207,31 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
     Submission }|--|| Assignment : ""AssignmentId (Cascade)""
     Submission }|--|| Student : ""StudentId (Restrict)""";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram(diagramOptions);
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram(diagramOptions);
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GenerateDiagram_NoColumnKeyTypes()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+        [TestMethod]
+        public void GenerateDiagram_NoColumnKeyTypes()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var diagramOptions = new EntityRelationshipDiagramOptions
-			{
-				IncludeColumnKeyTypes = false
-			};
-			var expected = @"erDiagram
+            using var context = new DatabaseContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var diagramOptions = new EntityRelationshipDiagramOptions
+            {
+                IncludeColumnKeyTypes = false
+            };
+            var expected = @"erDiagram
     Assignment {
         Int32 Id ""The unique identifier for the assignment.""
         Int32 CourseId
@@ -291,31 +291,31 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
     Submission }|--|| Assignment : ""AssignmentId (Cascade)""
     Submission }|--|| Student : ""StudentId (Restrict)""";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram(diagramOptions);
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram(diagramOptions);
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GenerateDiagram_FilteredColumnKeyTypes()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+        [TestMethod]
+        public void GenerateDiagram_FilteredColumnKeyTypes()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var diagramOptions = new EntityRelationshipDiagramOptions
-			{
-				FilterColumnByKeyTypes = RelationConstraintType.PrimaryKey | RelationConstraintType.ForeignKey
-			};
-			var expected = @"erDiagram
+            using var context = new DatabaseContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var diagramOptions = new EntityRelationshipDiagramOptions
+            {
+                FilterColumnByKeyTypes = RelationConstraintType.PrimaryKey | RelationConstraintType.ForeignKey
+            };
+            var expected = @"erDiagram
     Assignment {
         Int32 Id PK ""The unique identifier for the assignment.""
         Int32 CourseId FK
@@ -354,32 +354,32 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
     Submission }|--|| Assignment : ""AssignmentId (Cascade)""
     Submission }|--|| Student : ""StudentId (Restrict)""";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram(diagramOptions);
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram(diagramOptions);
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
 
-		[TestMethod]
-		public void GenerateDiagram_NoColumnWithoutKeyTypes()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+        [TestMethod]
+        public void GenerateDiagram_NoColumnWithoutKeyTypes()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var diagramOptions = new EntityRelationshipDiagramOptions
-			{
-				IncludeColumnComments = false
-			};
-			var expected = @"erDiagram
+            using var context = new DatabaseContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var diagramOptions = new EntityRelationshipDiagramOptions
+            {
+                IncludeColumnComments = false
+            };
+            var expected = @"erDiagram
     Assignment {
         Int32 Id PK
         Int32 CourseId FK
@@ -439,31 +439,31 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
     Submission }|--|| Assignment : ""AssignmentId (Cascade)""
     Submission }|--|| Student : ""StudentId (Restrict)""";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram(diagramOptions);
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram(diagramOptions);
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GenerateDiagram_NoLinks()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+        [TestMethod]
+        public void GenerateDiagram_NoLinks()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var diagramOptions = new EntityRelationshipDiagramOptions
-			{
-				IncludeLinks = false
-			};
-			var expected = @"erDiagram
+            using var context = new DatabaseContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var diagramOptions = new EntityRelationshipDiagramOptions
+            {
+                IncludeLinks = false
+            };
+            var expected = @"erDiagram
     Assignment {
         Int32 Id PK ""The unique identifier for the assignment.""
         Int32 CourseId FK
@@ -515,31 +515,31 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
         String LastName ""The last name of the teacher.""
     }";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram(diagramOptions);
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram(diagramOptions);
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GenerateDiagram_NoLinkLabels()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+        [TestMethod]
+        public void GenerateDiagram_NoLinkLabels()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var diagramOptions = new EntityRelationshipDiagramOptions
-			{
-				IncludeLinkLabels = false
-			};
-			var expected = @"erDiagram
+            using var context = new DatabaseContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var diagramOptions = new EntityRelationshipDiagramOptions
+            {
+                IncludeLinkLabels = false
+            };
+            var expected = @"erDiagram
     Assignment {
         Int32 Id PK ""The unique identifier for the assignment.""
         Int32 CourseId FK
@@ -599,31 +599,31 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
     Submission }|--|| Assignment : "" (Cascade)""
     Submission }|--|| Student : "" (Restrict)""";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram(diagramOptions);
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram(diagramOptions);
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
 
-		[TestMethod]
-		public void GenerateDiagram_NoLinkDeleteBehaviors()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<DatabaseContextMock>()
-				.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-				.Options;
+        [TestMethod]
+        public void GenerateDiagram_NoLinkDeleteBehaviors()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<DatabaseContextMock>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
-			using var context = new DatabaseContextMock(options);
-			context.Database.EnsureDeleted();
-			context.Database.EnsureCreated();
-			var diagramOptions = new EntityRelationshipDiagramOptions
-			{
-				IncludeLinkDeleteBehaviors = false
-			};
-			var expected = @"erDiagram
+            using var context = new DatabaseContextMock(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            var diagramOptions = new EntityRelationshipDiagramOptions
+            {
+                IncludeLinkDeleteBehaviors = false
+            };
+            var expected = @"erDiagram
     Assignment {
         Int32 Id PK ""The unique identifier for the assignment.""
         Int32 CourseId FK
@@ -683,13 +683,13 @@ namespace MermaidSharp.EntityFrameworkCore.Tests
     Submission }|--|| Assignment : ""AssignmentId""
     Submission }|--|| Student : ""StudentId""";
 
-			// Act
-			var diagram = context.ToMermaidEntityDiagram(diagramOptions);
-			var result = diagram.CalculateDiagram();
+            // Act
+            var diagram = context.ToMermaidEntityDiagram(diagramOptions);
+            var result = diagram.CalculateDiagram();
 
-			// Assert
-			Assert.IsNotNull(result);
-			Assert.AreEqual(expected, result);
-		}
-	}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+    }
 }
