@@ -1,4 +1,6 @@
-﻿namespace MermaidSharp.Configs.Themes
+﻿using MermaidSharp.Configs.Themes;
+
+namespace MermaidSharp.Configs.Themes
 {
     /// <summary>
     /// Represents a set of theme variables for customizing the appearance of quadrant chart diagrams.

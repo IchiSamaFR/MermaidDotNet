@@ -1,5 +1,5 @@
 using MermaidSharp.Attributes;
-using MermaidSharp.Configs.Themes.Children;
+using MermaidSharp.Configs.Themes;
 
 namespace MermaidSharp.Configs.Themes
 {

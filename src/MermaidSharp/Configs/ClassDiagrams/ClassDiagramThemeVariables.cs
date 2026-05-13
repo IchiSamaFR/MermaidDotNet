@@ -1,4 +1,6 @@
-﻿namespace MermaidSharp.Configs.Themes
+﻿using MermaidSharp.Configs.Themes;
+
+namespace MermaidSharp.Configs.Themes
 {
     /// <summary>
     /// Represents theme variables for class diagrams.

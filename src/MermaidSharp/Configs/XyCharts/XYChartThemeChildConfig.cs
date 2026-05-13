@@ -1,8 +1,9 @@
 using MermaidSharp.Attributes;
+using MermaidSharp.Configs.Themes;
 using MermaidSharp.Extensions;
 using System.Collections.Generic;
 
-namespace MermaidSharp.Configs.Themes.Children
+namespace MermaidSharp.Configs.Themes
 {
     /// <summary>
     /// Represents the configuration for XY chart theme variables in Mermaid diagrams.

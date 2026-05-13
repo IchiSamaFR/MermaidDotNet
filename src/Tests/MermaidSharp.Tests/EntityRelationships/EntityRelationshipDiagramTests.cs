@@ -288,18 +288,18 @@ namespace MermaidSharp.Tests.EntityRelationships
 
             var links = new List<EntityRelationLink>
             {
-                // One-to-one (circular)
-                new EntityRelationLink("Person", "Person", RelationLinkType.ZeroOrOne, RelationLinkType.ZeroOrOne, "SpouseId"),
-                // One-to-many
-                new EntityRelationLink("Company", "Employee", RelationLinkType.OneOrMore, RelationLinkType.ZeroOrMore, "CompanyId"),
-                // Many-to-many
-                new EntityRelationLink("Employee", "EmployeeProject", RelationLinkType.OneOrMore, RelationLinkType.ZeroOrMore, "EmployeeId"),
+		        // One-to-one (circular)
+		        new EntityRelationLink("Person", "Person", RelationLinkType.ZeroOrOne, RelationLinkType.ZeroOrOne, "SpouseId"),
+		        // One-to-many
+		        new EntityRelationLink("Company", "Employee", RelationLinkType.OneOrMore, RelationLinkType.ZeroOrMore, "CompanyId"),
+		        // Many-to-many
+		        new EntityRelationLink("Employee", "EmployeeProject", RelationLinkType.OneOrMore, RelationLinkType.ZeroOrMore, "EmployeeId"),
                 new EntityRelationLink("Project", "EmployeeProject", RelationLinkType.OneOrMore, RelationLinkType.ZeroOrMore, "ProjectId"),
-                // Multiple links between same entities
-                new EntityRelationLink("Department", "DepartmentManager", RelationLinkType.OneOrMore, RelationLinkType.ZeroOrMore, "DepartmentId"),
+		        // Multiple links between same entities
+		        new EntityRelationLink("Department", "DepartmentManager", RelationLinkType.OneOrMore, RelationLinkType.ZeroOrMore, "DepartmentId"),
                 new EntityRelationLink("Person", "DepartmentManager", RelationLinkType.OneOrMore, RelationLinkType.ZeroOrMore, "PersonId"),
-                // No foreign key relation
-                new EntityRelationLink("Employee", "Department", RelationLinkType.ZeroOrMore, RelationLinkType.ZeroOrMore, "DepartmentId")
+		        // No foreign key relation
+		        new EntityRelationLink("Employee", "Department", RelationLinkType.ZeroOrMore, RelationLinkType.ZeroOrMore, "DepartmentId")
             };
 
             var expected = @"erDiagram

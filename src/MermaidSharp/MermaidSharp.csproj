@@ -12,4 +12,154 @@
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Configs\AConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\AConfigurable.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\ClassDiagrams\ClassDiagramConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\EntityRelationships\EntityRelationshipConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\FlowCharts\FlowChartConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\GitGraphs\GitGraphConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\IConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\PieCharts\PieChartConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\QuadrantCharts\QuadrantChartConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Configs\XyCharts\XYChartConfig.cs">
+        <CustomToolNamespace>MermaidSharp.Configs</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\ClassDiagrams\ClassLinkType.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\ClassDiagrams\ClassPropertyVisibility.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\EntityRelationships\RelationConstraintType.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\EntityRelationships\RelationLinkType.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\FlowCharts\FlowDirection.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\FlowCharts\FlowLinkArrowType.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\FlowCharts\FlowLinkType.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\FlowCharts\FlowNodeShapeType.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\GitGraphs\GitCommitType.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\GitGraphs\GitDirection.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\XyCharts\ChartOrientation.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\XyCharts\XAxisPosition.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\XyCharts\XYSeriesType.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Enums\XyCharts\YAxisPosition.cs">
+        <CustomToolNamespace>MermaidSharp.Enums</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\GitGraphs\AGitAction.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\ALink.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\ANode.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\XyCharts\ChartXAxis.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\XyCharts\ChartYAxis.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\ClassDiagrams\ClassLink.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\ClassDiagrams\ClassMethod.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\ClassDiagrams\ClassMethodParam.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\ClassDiagrams\ClassNamespace.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\ClassDiagrams\ClassNode.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\ClassDiagrams\ClassProperty.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\EntityRelationships\EntityRelationColumn.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\EntityRelationships\EntityRelationLink.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\EntityRelationships\EntityRelationNode.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\FlowCharts\FlowLink.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\FlowCharts\FlowNode.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\FlowCharts\FlowSubGraph.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\GitGraphs\GitBranch.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\GitGraphs\GitCheckout.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\GitGraphs\GitCherryPick.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\GitGraphs\GitCommit.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\GitGraphs\GitMerge.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\PieCharts\PieSlice.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\QuadrantCharts\QuadrantChartPoint.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+      <Compile Update="Models\XyCharts\XYSeries.cs">
+        <CustomToolNamespace>MermaidSharp.Models</CustomToolNamespace>
+      </Compile>
+    </ItemGroup>
 </Project>

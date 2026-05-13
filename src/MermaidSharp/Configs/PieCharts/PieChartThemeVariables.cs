@@ -1,4 +1,5 @@
 ﻿using MermaidSharp.Attributes;
+using MermaidSharp.Configs.Themes;
 using MermaidSharp.Models;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,6 @@
 using MermaidSharp.Attributes;
+using MermaidSharp.Configs;
+using MermaidSharp.Configs.Themes;
 using MermaidSharp.Configs.Themes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

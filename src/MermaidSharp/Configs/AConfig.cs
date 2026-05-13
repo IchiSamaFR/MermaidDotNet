@@ -1,5 +1,4 @@
 ﻿using MermaidSharp.Attributes;
-using MermaidSharp.Configs.Themes;
 using MermaidSharp.Enums;
 using MermaidSharp.Extensions;
 using System;
@@ -23,14 +22,14 @@ namespace MermaidSharp.Configs
     public abstract class AConfig<TThemeVariables> : IConfig
         where TThemeVariables : IThemeVariables, new()
     {
-        private const string Name = "config";
+        private const string _name = "config";
 
         /// <summary>
         /// Gets the name of the configuration section represented by the derived class.
         /// </summary>
         protected virtual string SectionName { get; }
 
-        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyInfo[]> ConfigPropertiesCache
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyInfo[]> _configPropertiesCache
             = new System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyInfo[]>();
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace MermaidSharp.Configs
             if (paramsList.Count == 0)
                 return new List<string>();
 
-            paramsList.Insert(0, $"{Name}:");
+            paramsList.Insert(0, $"{_name}:");
 
             return paramsList;
         }
@@ -119,7 +118,7 @@ namespace MermaidSharp.Configs
         protected List<string> GetSectionConfigVariableParams()
         {
             var lst = new List<string>();
-            var props = ConfigPropertiesCache.GetOrAdd(
+            var props = _configPropertiesCache.GetOrAdd(
                 GetType(),
                 t => t.GetProperties(BindingFlags.Instance | BindingFlags.Public)
                       .Where(p => p.GetCustomAttribute<ConfigVariableAttribute>() != null)
@@ -147,45 +146,41 @@ namespace MermaidSharp.Configs
             return lst;
         }
 
-        private IEnumerable<string> GetConfigProperty(ConfigVariableAttribute attr, object value)
+        private List<string> GetConfigProperty(ConfigVariableAttribute attr, object value)
         {
             var lst = new List<string>();
 
-            if (value is IEnumerable enumerableVal && !(value is string))
+            switch (value)
             {
-                var enumerableCastedVal = enumerableVal.Cast<object>().Select(o => o?.ToString()).ToList();
-                foreach (var item in enumerableCastedVal)
-                {
-                    lst.AddRange(GetConfigProperty(attr, item));
-                }
-            }
-            else if (value is double dblVal)
-            {
-                lst.Add($"{attr.Name}: {dblVal.ToString("G", CultureInfo.InvariantCulture)}");
-            }
-            else if (value is float floatVal)
-            {
-                lst.Add($"{attr.Name}: {floatVal.ToString("G", CultureInfo.InvariantCulture)}");
-            }
-            else if (value is decimal decVal)
-            {
-                lst.Add($"{attr.Name}: {decVal.ToString("G", CultureInfo.InvariantCulture)}");
-            }
-            else if (value is bool boolVal)
-            {
-                lst.Add($"{attr.Name}: {boolVal.ToString().ToLowerInvariant()}");
-            }
-            else if (value is string strVal && !string.IsNullOrEmpty(strVal))
-            {
-                lst.Add($"{attr.Name}: \"{strVal}\"");
-            }
-            else if (value is Enum enumVal)
-            {
-                lst.Add($"{attr.Name}: {enumVal.PrimaryString()}");
-            }
-            else
-            {
-                lst.Add($"{attr.Name}: {value.ToString()}");
+                case IEnumerable enumerableVal when !(value is string):
+                    var enumerableCastedVal = enumerableVal.Cast<object>().Select(o => o?.ToString()).ToList();
+                    foreach (var item in enumerableCastedVal)
+                    {
+                        lst.AddRange(GetConfigProperty(attr, item));
+                    }
+
+                    break;
+                case double dblVal:
+                    lst.Add($"{attr.Name}: {dblVal.ToString("G", CultureInfo.InvariantCulture)}");
+                    break;
+                case float floatVal:
+                    lst.Add($"{attr.Name}: {floatVal.ToString("G", CultureInfo.InvariantCulture)}");
+                    break;
+                case decimal decVal:
+                    lst.Add($"{attr.Name}: {decVal.ToString("G", CultureInfo.InvariantCulture)}");
+                    break;
+                case bool boolVal:
+                    lst.Add($"{attr.Name}: {boolVal.ToString().ToLowerInvariant()}");
+                    break;
+                case string strVal when !string.IsNullOrEmpty(strVal):
+                    lst.Add($"{attr.Name}: \"{strVal}\"");
+                    break;
+                case Enum enumVal:
+                    lst.Add($"{attr.Name}: {enumVal.PrimaryString()}");
+                    break;
+                default:
+                    lst.Add($"{attr.Name}: {value?.ToString()}");
+                    break;
             }
 
             return lst;
