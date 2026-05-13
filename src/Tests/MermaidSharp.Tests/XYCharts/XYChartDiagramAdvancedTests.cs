@@ -1,5 +1,5 @@
 using MermaidSharp.Configs;
-using MermaidSharp.Configs.Themes.Children;
+using MermaidSharp.Configs.Themes;
 using MermaidSharp.Diagrams;
 using MermaidSharp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

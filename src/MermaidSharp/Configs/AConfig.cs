@@ -1,4 +1,5 @@
 ﻿using MermaidSharp.Attributes;
+using MermaidSharp.Configs.Themes;
 using MermaidSharp.Enums;
 using MermaidSharp.Extensions;
 using System;
